@@ -1,9 +1,9 @@
-import {FacebookIcon, InstagramIcon, LucideIcon} from 'lucide-react'
+import { FacebookIcon, InstagramIcon, LucideIcon } from 'lucide-react'
 
 export const siteConfig = {
-  name: '',
-  email: '',
-  phone: '',
+  name: 'Krzysztof Kulawik',
+  email: 'kontakt@krzysztofkulawik.pl',
+  phone: '+48 668 485 081',
   legalName: '',
   nip: '',
   address: {
@@ -37,10 +37,10 @@ export const siteConfig = {
 } satisfies SiteConfig
 
 type SiteConfig = Record<string, any> & {
-  socials: Record<string, {label: string; value: string; icon: LucideIcon; name: string}>
+  socials: Record<string, { label: string; value: string; icon: LucideIcon; name: string }>
 }
 
-export const composeAddress = (address: {street: string; postalCode: string; city: string}) => {
+export const composeAddress = (address: { street: string; postalCode: string; city: string }) => {
   return `${address.street}, ${address.postalCode} ${address.city}`
 }
 

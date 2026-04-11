@@ -12,7 +12,9 @@
  * ---------------------------------------------------------------------------------
  */
 
-// Source: ..\studio\schema.json
+export declare const internalGroqTypeReferenceTo: unique symbol
+
+// Source: ../schema.json
 export type InfoSection = {
 	_type: 'infoSection'
 	heading?: string
@@ -362,14 +364,14 @@ export type SanityFileAsset = {
 	title?: string
 	description?: string
 	altText?: string
-	sha1hash?: string
-	extension?: string
-	mimeType?: string
-	size?: number
-	assetId?: string
+	sha1hash: string
+	extension: string
+	mimeType: string
+	size: number
+	assetId: string
 	uploadId?: string
-	path?: string
-	url?: string
+	path: string
+	url: string
 	source?: SanityAssetSourceData
 }
 
@@ -391,14 +393,14 @@ export type SanityImageAsset = {
 	title?: string
 	description?: string
 	altText?: string
-	sha1hash?: string
-	extension?: string
-	mimeType?: string
-	size?: number
-	assetId?: string
+	sha1hash: string
+	extension: string
+	mimeType: string
+	size: number
+	assetId: string
 	uploadId?: string
-	path?: string
-	url?: string
+	path: string
+	url: string
 	metadata?: SanityImageMetadata
 	source?: SanityAssetSourceData
 }
@@ -445,15 +447,7 @@ export type AllSanitySchemaTypes =
 	| SanityImageAsset
 	| Geopoint
 
-export declare const internalGroqTypeReferenceTo: unique symbol
-
-type ArrayOf<T> = Array<
-	T & {
-		_key: string
-	}
->
-
-// Source: src\sanity\lib\queries.ts
+// Source: src/sanity/lib/queries.ts
 // Variable: settingsQuery
 // Query: *[_type == "settings"][0]
 export type SettingsQueryResult = {
@@ -495,7 +489,7 @@ export type SettingsQueryResult = {
 	}
 } | null
 
-// Source: src\sanity\lib\queries.ts
+// Source: src/sanity/lib/queries.ts
 // Variable: sitemapData
 // Query: *[_type == "post" || _type == "legalPage" && defined(slug.current)] | order(_type asc) {    "slug": slug.current,    _type,    _updatedAt,  }
 export type SitemapDataResult = Array<
@@ -511,7 +505,7 @@ export type SitemapDataResult = Array<
 	  }
 >
 
-// Source: src\sanity\lib\queries.ts
+// Source: src/sanity/lib/queries.ts
 // Variable: allPostsQuery
 // Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  }
 export type AllPostsQueryResult = Array<{
@@ -531,7 +525,7 @@ export type AllPostsQueryResult = Array<{
 	date: string
 }>
 
-// Source: src\sanity\lib\queries.ts
+// Source: src/sanity/lib/queries.ts
 // Variable: morePostsQuery
 // Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  }
 export type MorePostsQueryResult = Array<{
@@ -551,7 +545,7 @@ export type MorePostsQueryResult = Array<{
 	date: string
 }>
 
-// Source: src\sanity\lib\queries.ts
+// Source: src/sanity/lib/queries.ts
 // Variable: postQuery
 // Query: *[_type == "post" && slug.current == $slug] [0] {    content[]{    ...,    markDefs[]{      ...,        _type == "link" => {    "post": post->slug.current,    "legalPage": legalPage->slug.current  }    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  }
 export type PostQueryResult = {
@@ -593,14 +587,14 @@ export type PostQueryResult = {
 	date: string
 } | null
 
-// Source: src\sanity\lib\queries.ts
+// Source: src/sanity/lib/queries.ts
 // Variable: postPagesSlugs
 // Query: *[_type == "post" && defined(slug.current)]  {"slug": slug.current}
 export type PostPagesSlugsResult = Array<{
 	slug: string
 }>
 
-// Source: src\sanity\lib\queries.ts
+// Source: src/sanity/lib/queries.ts
 // Variable: faqQuery
 // Query: *[_type == "faq"] | order(orderRank) {    question,    answer  }
 export type FaqQueryResult = Array<{
@@ -608,7 +602,7 @@ export type FaqQueryResult = Array<{
 	answer: string
 }>
 
-// Source: src\sanity\lib\queries.ts
+// Source: src/sanity/lib/queries.ts
 // Variable: legalPageQuery
 // Query: *[_type == "legalPage" && slug.current == $slug][0]{    _id, title, intro, lastUpdated,    "slug": slug.current,    sections[]{      _key, title, collapsedByDefault, anchor,      content    },    seoTitle, seoDescription,    noIndex,  }
 export type LegalPageQueryResult = {

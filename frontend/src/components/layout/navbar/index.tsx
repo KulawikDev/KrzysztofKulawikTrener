@@ -1,99 +1,81 @@
 'use client'
 
-import { buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { NAVBAR_LINKS } from '@/config/links'
-import { useScrollPosition } from '@/hooks/use-scroll-position'
 import { cn } from '@/lib/utils'
-import { HomeIcon, ShoppingCartIcon } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { MenuIcon, XIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Suspense, useEffect, useState } from 'react'
+import { useState } from 'react'
 import Wordmark from '~/public/assets/wordmark.png'
-import { MobileMenu } from './mobile-menu'
+import { NavPanel } from './nav-panel'
 
-type Props = {}
+const iconVariants = {
+	enter: { rotate: -90, opacity: 0, scale: 0.5 },
+	center: { rotate: 0, opacity: 1, scale: 1, transition: { duration: 0.18, ease: 'easeOut' } },
+	exit: { rotate: 90, opacity: 0, scale: 0.5, transition: { duration: 0.12, ease: 'easeIn' } }
+}
 
-const Navbar = ({}: Props) => {
-	const { y } = useScrollPosition()
-	const [isActive, setIsActive] = useState(false)
-
-	const links = NAVBAR_LINKS
-
-	useEffect(() => {
-		if (y > 10) {
-			if (!isActive) {
-				setIsActive(true)
-			}
-		} else {
-			if (isActive) {
-				setIsActive(false)
-			}
-		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [y])
+const Navbar = () => {
+	const [isMenuOpen, setIsMenuOpen] = useState(false)
 
 	return (
-		<header
-			className={cn(
-				'fixed top-0 left-0 z-[49] w-full [body[data-scroll-locked="1"]_&]:translate-x-[calc(-1/2*var(--removed-body-scroll-bar-size))]'
-			)}>
-			<div
+		<>
+			<header
 				className={cn(
-					'grid-container border-transparent bg-transparent text-foreground transition-colors duration-300 [body:has([data-reverse-nav])_&]:text-background',
-					isActive && 'border-border bg-secondary shadow-sm'
+					'fixed top-0 left-0 z-60 w-full transition-colors duration-300',
+					!isMenuOpen && 'mix-blend-difference',
+					'[body[data-scroll-locked="1"]_&]:translate-x-[calc(-1/2*var(--removed-body-scroll-bar-size))]'
 				)}>
-				<nav className={cn('relative flex h-20 items-center justify-between px-0 py-4', isActive && '')}>
-					<Link href={'/'} className={cn('not-link z-50 w-max duration-300', isActive && '')}>
-						<Image
-							src={Wordmark}
-							alt='Logo SpediGuide'
-							className={cn(
-								'h-14 w-auto duration-300',
-								isActive ? '' : '[body:has([data-reverse-nav])_&]:text-background'
-							)}
-						/>
-						<span className='sr-only'>Strona główna</span>
-					</Link>
-
-					<ul
-						className={cn(
-							'absolute-center hidden flex-wrap items-center justify-center gap-x-2 md:flex xl:gap-6',
-							isActive && 'text-foreground'
-						)}>
-						{links.map((link, i) => (
-							<li key={link.href}>
-								<Link href={link.href} className='link link-underline-slide py-0.5 text-base'>
-									{link.label}
-								</Link>
-							</li>
-						))}
-					</ul>
-					<div className='flex items-center gap-x-4 md:hidden'>
-						<Suspense>
-							<MobileMenu
-								setIsNavActive={setIsActive}
-								isNavActive={isActive}
-								links={[
-									{
-										href: '/',
-										label: 'Strona główna',
-										Icon: HomeIcon
-									},
-									...links
-								]}
-							/>
-						</Suspense>
-					</div>
-
-					<div className='hidden md:flex'>
-						<Link href={'/'} className={cn(buttonVariants({ variant: 'default' }))}>
-							<span>Take Action</span>
-							<ShoppingCartIcon className='size-4' />
+				<div
+					className={cn(
+						'grid-container text-foreground',
+						!isMenuOpen && '[body:has([data-reverse-nav])_&]:text-background'
+					)}>
+					<nav className='relative flex h-20 items-center justify-between py-4'>
+						<Link href='/' className='not-link z-50 w-max'>
+							<Image src={Wordmark} alt='Logo Krzysztof Kulawik' className='h-14 w-auto' />
+							<span className='sr-only'>Strona główna</span>
 						</Link>
-					</div>
-				</nav>
-			</div>
-		</header>
+
+						{/* Toggle button – hamburger ↔ X with rotate animation */}
+						<Button
+							size='icon'
+							className='relative size-12 overflow-hidden rounded-full'
+							onClick={() => setIsMenuOpen(v => !v)}
+							aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
+							aria-expanded={isMenuOpen}>
+							<AnimatePresence mode='wait' initial={false}>
+								{isMenuOpen ? (
+									<motion.span
+										key='close'
+										className='absolute inset-0 flex items-center justify-center'
+										variants={iconVariants as any}
+										initial='enter'
+										animate='center'
+										exit='exit'>
+										<XIcon className='size-6' />
+									</motion.span>
+								) : (
+									<motion.span
+										key='open'
+										className='absolute inset-0 flex items-center justify-center'
+										variants={iconVariants as any}
+										initial='enter'
+										animate='center'
+										exit='exit'>
+										<MenuIcon className='size-6' />
+									</motion.span>
+								)}
+							</AnimatePresence>
+						</Button>
+					</nav>
+				</div>
+			</header>
+
+			<NavPanel isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} links={NAVBAR_LINKS} />
+		</>
 	)
 }
 

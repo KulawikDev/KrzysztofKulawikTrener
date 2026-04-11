@@ -14,7 +14,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata, Viewport } from 'next'
 import { VisualEditing } from 'next-sanity/visual-editing'
-import { Inter, Poppins } from 'next/font/google'
+import { Bebas_Neue, Inter, Libre_Baskerville, Poppins } from 'next/font/google'
 import { draftMode } from 'next/headers'
 import { Suspense } from 'react'
 import { Toaster } from 'sonner'
@@ -61,12 +61,18 @@ export const viewport: Viewport = {
 	themeColor: [{ media: '(prefers-color-scheme: light)', color: 'white' }]
 }
 
-const heading = Poppins({
+const heading = Bebas_Neue({
 	subsets: ['latin-ext'],
 	variable: '--font-heading',
-	weight: ['400', '500', '600', '700']
+	weight: '400',
+	display: 'swap'
 })
-const body = Inter({ subsets: ['latin-ext'], variable: '--font-body' })
+const body = Libre_Baskerville({
+	subsets: ['latin-ext'],
+	variable: '--font-body',
+	weight: ['400', '700'],
+	display: 'swap'
+})
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
 	const { isEnabled: isDraftMode } = await draftMode()
