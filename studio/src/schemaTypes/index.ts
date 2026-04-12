@@ -1,6 +1,8 @@
 import {faq} from './documents/faq'
 import {legalPage} from './documents/legalPage'
 import {post} from './documents/post'
+import {service} from './documents/service'
+import {transformation} from './documents/transformation'
 import {blockContent} from './objects/blockContent'
 import {infoSection} from './objects/infoSection'
 import {link} from './objects/link'
@@ -15,6 +17,8 @@ export const schemaTypes = [
   post,
   faq,
   legalPage,
+  service,
+  transformation,
   // Objects
   blockContent,
   link,

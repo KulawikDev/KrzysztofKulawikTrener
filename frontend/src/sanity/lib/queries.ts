@@ -64,6 +64,39 @@ export const faqQuery = defineQuery(`
   }
 `)
 
+export const servicesQuery = defineQuery(`
+  *[_type == "service"] | order(order asc) {
+    _id,
+    name,
+    label,
+    image,
+    icon,
+    ctaLabel,
+  }
+`)
+
+export const transformationsQuery = defineQuery(`
+  *[_type == "transformation"] | order(_createdAt asc) {
+    _id,
+    name,
+    age,
+    durationMonths,
+    imageBefore,
+    imageAfter,
+    stats[] { _key, label, before, after },
+    description[]{
+      ...,
+      markDefs[]{
+        ...,
+        _type == "link" => {
+          "post": post->slug.current,
+          "legalPage": legalPage->slug.current
+        }
+      }
+    }
+  }
+`)
+
 export const legalPageQuery = defineQuery(`
   *[_type == "legalPage" && slug.current == $slug][0]{
     _id, title, intro, lastUpdated,

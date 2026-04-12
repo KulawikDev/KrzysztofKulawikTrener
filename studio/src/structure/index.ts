@@ -1,7 +1,7 @@
-import {CogIcon} from '@sanity/icons'
-import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
-import {ComponentType} from 'react'
-import type {StructureBuilder, StructureResolver} from 'sanity/structure'
+import { CogIcon } from '@sanity/icons'
+import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list'
+import { ComponentType } from 'react'
+import type { StructureBuilder, StructureResolver } from 'sanity/structure'
 
 /**
  * Structure builder is useful whenever you want to control how documents are grouped and
@@ -17,13 +17,19 @@ const GROUPED_TYPES: {
   singleton?: boolean
   icon?: ComponentType
 }[][] = [
-  [{name: 'post', label: 'Artykuły'}],
-  [{name: 'settings', label: 'Ustawienia strony', singleton: true, icon: CogIcon}],
-  [
-    {name: 'faq', label: 'Często zadawane pytania'},
-    {name: 'legalPage', label: 'Strony prawne'},
-  ],
-]
+    [
+      { name: 'post', label: 'Artykuły' },
+      { name: 'transformation', label: 'Transformacje' },
+      { name: 'service', label: 'Usługi', orderable: true },
+    ],
+    [
+      { name: 'settings', label: 'Ustawienia strony', singleton: true, icon: CogIcon }
+    ],
+    [
+      { name: 'faq', label: 'Często zadawane pytania' },
+      { name: 'legalPage', label: 'Strony prawne' },
+    ],
+  ]
 
 const DISALLOWED_TYPES = ['assist.instruction.context', 'metaPages']
 
@@ -32,7 +38,7 @@ export const structure: StructureResolver = (S: StructureBuilder, context) =>
     .title('Website Content')
     .items([
       ...GROUPED_TYPES.flatMap((group, index) => {
-        const items = group.map(({name, label, orderable, singleton, icon}) => {
+        const items = group.map(({ name, label, orderable, singleton, icon }) => {
           if (singleton) {
             // Handle singleton documents
             return S.listItem()
@@ -64,7 +70,7 @@ export const structure: StructureResolver = (S: StructureBuilder, context) =>
       ...S.documentTypeListItems().filter(
         (listItem) =>
           !GROUPED_TYPES.flat()
-            .map(({name}) => name)
+            .map(({ name }) => name)
             .includes(listItem.getId() as string) &&
           !DISALLOWED_TYPES.includes(listItem.getId() || ''),
       ),

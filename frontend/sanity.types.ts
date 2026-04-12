@@ -59,6 +59,87 @@ export type BlockContent = Array<{
 	_key: string
 }>
 
+export type SanityImageAssetReference = {
+	_ref: string
+	_type: 'reference'
+	_weak?: boolean
+	[internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+}
+
+export type Transformation = {
+	_id: string
+	_type: 'transformation'
+	_createdAt: string
+	_updatedAt: string
+	_rev: string
+	name: string
+	age: number
+	durationMonths: number
+	imageBefore: {
+		asset?: SanityImageAssetReference
+		media?: unknown
+		hotspot?: SanityImageHotspot
+		crop?: SanityImageCrop
+		alt?: string
+		_type: 'image'
+	}
+	imageAfter: {
+		asset?: SanityImageAssetReference
+		media?: unknown
+		hotspot?: SanityImageHotspot
+		crop?: SanityImageCrop
+		alt?: string
+		_type: 'image'
+	}
+	stats?: Array<{
+		label: string
+		before: string
+		after: string
+		_key: string
+	}>
+	description?: BlockContent
+}
+
+export type SanityImageCrop = {
+	_type: 'sanity.imageCrop'
+	top: number
+	bottom: number
+	left: number
+	right: number
+}
+
+export type SanityImageHotspot = {
+	_type: 'sanity.imageHotspot'
+	x: number
+	y: number
+	height: number
+	width: number
+}
+
+export type Service = {
+	_id: string
+	_type: 'service'
+	_createdAt: string
+	_updatedAt: string
+	_rev: string
+	orderRank?: string
+	name: string
+	label: string
+	image: {
+		asset?: SanityImageAssetReference
+		media?: unknown
+		hotspot?: SanityImageHotspot
+		crop?: SanityImageCrop
+		alt?: string
+		_type: 'image'
+	}
+	icon: LucideIcon
+	ctaLabel: string
+	order?: number
+}
+
+export type LucideIcon = string
+
 export type LegalPage = {
 	_id: string
 	_type: 'legalPage'
@@ -93,13 +174,6 @@ export type Faq = {
 	_rev: string
 	question: string
 	answer: string
-}
-
-export type SanityImageAssetReference = {
-	_ref: string
-	_type: 'reference'
-	_weak?: boolean
-	[internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
 }
 
 export type Settings = {
@@ -139,22 +213,6 @@ export type Settings = {
 		metadataBase?: string
 		_type: 'image'
 	}
-}
-
-export type SanityImageCrop = {
-	_type: 'sanity.imageCrop'
-	top: number
-	bottom: number
-	left: number
-	right: number
-}
-
-export type SanityImageHotspot = {
-	_type: 'sanity.imageHotspot'
-	x: number
-	y: number
-	height: number
-	width: number
 }
 
 export type Post = {
@@ -417,13 +475,16 @@ export type AllSanitySchemaTypes =
 	| PostReference
 	| Link
 	| BlockContent
+	| SanityImageAssetReference
+	| Transformation
+	| SanityImageCrop
+	| SanityImageHotspot
+	| Service
+	| LucideIcon
 	| LegalPage
 	| Slug
 	| Faq
-	| SanityImageAssetReference
 	| Settings
-	| SanityImageCrop
-	| SanityImageHotspot
 	| Post
 	| SanityAssistInstructionTask
 	| SanityAssistTaskStatus
@@ -603,6 +664,79 @@ export type FaqQueryResult = Array<{
 }>
 
 // Source: src/sanity/lib/queries.ts
+// Variable: servicesQuery
+// Query: *[_type == "service"] | order(order asc) {    _id,    name,    label,    image,    icon,    ctaLabel,  }
+export type ServicesQueryResult = Array<{
+	_id: string
+	name: string
+	label: string
+	image: {
+		asset?: SanityImageAssetReference
+		media?: unknown
+		hotspot?: SanityImageHotspot
+		crop?: SanityImageCrop
+		alt?: string
+		_type: 'image'
+	}
+	icon: LucideIcon
+	ctaLabel: string
+}>
+
+// Source: src/sanity/lib/queries.ts
+// Variable: transformationsQuery
+// Query: *[_type == "transformation"] | order(_createdAt asc) {    _id,    name,    age,    durationMonths,    imageBefore,    imageAfter,    stats[] { _key, label, before, after },    description[]{      ...,      markDefs[]{        ...,        _type == "link" => {          "post": post->slug.current,          "legalPage": legalPage->slug.current        }      }    }  }
+export type TransformationsQueryResult = Array<{
+	_id: string
+	name: string
+	age: number
+	durationMonths: number
+	imageBefore: {
+		asset?: SanityImageAssetReference
+		media?: unknown
+		hotspot?: SanityImageHotspot
+		crop?: SanityImageCrop
+		alt?: string
+		_type: 'image'
+	}
+	imageAfter: {
+		asset?: SanityImageAssetReference
+		media?: unknown
+		hotspot?: SanityImageHotspot
+		crop?: SanityImageCrop
+		alt?: string
+		_type: 'image'
+	}
+	stats: Array<{
+		_key: string
+		label: string
+		before: string
+		after: string
+	}> | null
+	description: Array<{
+		children?: Array<{
+			marks?: Array<string>
+			text?: string
+			_type: 'span'
+			_key: string
+		}>
+		style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+		listItem?: 'bullet' | 'number'
+		markDefs: Array<{
+			linkType?: 'href' | 'post'
+			href?: string
+			post: string | null
+			openInNewTab?: boolean
+			_type: 'link'
+			_key: string
+			legalPage: null
+		}> | null
+		level?: number
+		_type: 'block'
+		_key: string
+	}> | null
+}>
+
+// Source: src/sanity/lib/queries.ts
 // Variable: legalPageQuery
 // Query: *[_type == "legalPage" && slug.current == $slug][0]{    _id, title, intro, lastUpdated,    "slug": slug.current,    sections[]{      _key, title, collapsedByDefault, anchor,      content    },    seoTitle, seoDescription,    noIndex,  }
 export type LegalPageQueryResult = {
@@ -634,6 +768,8 @@ declare module '@sanity/client' {
 		'\n  *[_type == "post" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "post": post->slug.current,\n    "legalPage": legalPage->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n\n  }\n': PostQueryResult
 		'\n  *[_type == "post" && defined(slug.current)]\n  {"slug": slug.current}\n': PostPagesSlugsResult
 		'\n  *[_type == "faq"] | order(orderRank) {\n    question,\n    answer\n  }\n': FaqQueryResult
+		'\n  *[_type == "service"] | order(order asc) {\n    _id,\n    name,\n    label,\n    image,\n    icon,\n    ctaLabel,\n  }\n': ServicesQueryResult
+		'\n  *[_type == "transformation"] | order(_createdAt asc) {\n    _id,\n    name,\n    age,\n    durationMonths,\n    imageBefore,\n    imageAfter,\n    stats[] { _key, label, before, after },\n    description[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "link" => {\n          "post": post->slug.current,\n          "legalPage": legalPage->slug.current\n        }\n      }\n    }\n  }\n': TransformationsQueryResult
 		'\n  *[_type == "legalPage" && slug.current == $slug][0]{\n    _id, title, intro, lastUpdated,\n    "slug": slug.current,\n    sections[]{\n      _key, title, collapsedByDefault, anchor,\n      content\n    },\n    seoTitle, seoDescription,\n    noIndex,\n  }\n': LegalPageQueryResult
 	}
 }
