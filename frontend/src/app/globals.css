@@ -54,6 +54,61 @@
 
 	--background-image-gradient-primary: var(--primary-gradient);
 	--background-image-gradient-secondary: var(--secondary-gradient);
+
+	--animate-marquee-left: marquee-left var(--marquee-duration) linear var(--marquee-loop-count);
+	--animate-marquee-right: marquee-right var(--marquee-duration) linear var(--marquee-loop-count);
+	--animate-marquee-left-rtl: marquee-left-rtl var(--marquee-duration) linear var(--marquee-loop-count);
+	--animate-marquee-right-rtl: marquee-right-rtl var(--marquee-duration) linear var(--marquee-loop-count);
+	--animate-marquee-up: marquee-up var(--marquee-duration) linear var(--marquee-loop-count);
+	--animate-marquee-down: marquee-down var(--marquee-duration) linear var(--marquee-loop-count);
+	@keyframes marquee-left {
+		0% {
+			transform: translateX(0%);
+		}
+		100% {
+			transform: translateX(calc(-100% - var(--marquee-gap)));
+		}
+	}
+	@keyframes marquee-right {
+		0% {
+			transform: translateX(calc(-100% - var(--marquee-gap)));
+		}
+		100% {
+			transform: translateX(0%);
+		}
+	}
+	@keyframes marquee-up {
+		0% {
+			transform: translateY(0%);
+		}
+		100% {
+			transform: translateY(calc(-100% - var(--marquee-gap)));
+		}
+	}
+	@keyframes marquee-down {
+		0% {
+			transform: translateY(calc(-100% - var(--marquee-gap)));
+		}
+		100% {
+			transform: translateY(0%);
+		}
+	}
+	@keyframes marquee-left-rtl {
+		0% {
+			transform: translateX(0%);
+		}
+		100% {
+			transform: translateX(calc(100% + var(--marquee-gap)));
+		}
+	}
+	@keyframes marquee-right-rtl {
+		0% {
+			transform: translateX(calc(100% + var(--marquee-gap)));
+		}
+		100% {
+			transform: translateX(0%);
+		}
+	}
 }
 
 :root {
@@ -91,7 +146,7 @@
 	--sidebar-ring: oklch(0.556 0 0);
 
 	--primary-gradient: linear-gradient(to bottom, #ffc902, #f7b210);
-	--secondary-gradient: linear-gradient(-80deg, #161616, #1f1f1f);
+	--secondary-gradient: linear-gradient(-70deg, #1f1f1f, #161616);
 }
 
 @layer base {
@@ -149,6 +204,44 @@
 	@apply transition-all! duration-150 active:scale-[0.98];
 }
 
+@utility bg-grid-* {
+	--grid-opacity: calc(--modifier(integer) * 1%);
+	--grid-color: --alpha(--value(--color-*) / var(--grid-opacity, 100%));
+
+	background-image:
+		linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+		linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+	background-size: calc(--value(integer) * 1px) calc(--value(integer) * 1px);
+	background-position: center;
+}
+
+@utility bg-dots-* {
+	--dot-opacity: calc(--modifier(integer) * 1%);
+	--dot-color: --alpha(--value(--color-*) / var(--dot-opacity, 100%));
+
+	background-image: radial-gradient(circle, var(--dot-color) 2px, transparent 2px);
+	background-size: calc(--value(integer) * 1px) calc(--value(integer) * 1px);
+	background-position: center;
+}
+@utility grain-overlay-* {
+	&::after {
+		content: '';
+		background-image: url('/images/decoration/grain.png');
+		background-size: 150px;
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+		opacity: --value(percentage);
+	}
+}
+
+@utility text-stroke-* {
+	--stroke-opacity: calc(--modifier(integer) * 1%);
+	--stroke-color: --alpha(--value(--color-*) / var(--stroke-opacity, 100%));
+
+	-webkit-text-stroke: calc(--value(integer) * 1px) var(--stroke-color);
+	text-stroke: calc(--value(integer) * 1px) var(--stroke-color);
+}
 .grecaptcha-badge {
 	visibility: hidden !important;
 	opacity: 0 !important;

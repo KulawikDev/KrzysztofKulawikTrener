@@ -48,7 +48,7 @@ export function Hero() {
 					<Image
 						src={HeroPerson}
 						alt=''
-						className='max-h-full w-auto max-w-none object-contain object-bottom'
+						className='h-full max-h-full w-auto max-w-none object-contain object-bottom'
 						priority
 					/>
 				</div>

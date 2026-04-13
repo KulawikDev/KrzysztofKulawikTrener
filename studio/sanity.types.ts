@@ -116,6 +116,63 @@ export type SanityImageHotspot = {
   width: number
 }
 
+export type Testimonial = {
+  _id: string
+  _type: 'testimonial'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  orderRank?: string
+  name: string
+  quote: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'normal'
+    listItem?: never
+    markDefs?: null
+    level?: number
+    _type: 'block'
+    _key: string
+  }>
+  image?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+  rating: 1 | 2 | 3 | 4 | 5
+}
+
+export type Service = {
+  _id: string
+  _type: 'service'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  orderRank?: string
+  name: string
+  label: string
+  image: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+  icon: LucideIcon
+  ctaLabel: string
+  order?: number
+}
+
+export type LucideIcon = string
+
 export type LegalPage = {
   _id: string
   _type: 'legalPage'
@@ -150,6 +207,82 @@ export type Faq = {
   _rev: string
   question: string
   answer: string
+}
+
+export type SanityFileAssetReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+}
+
+export type Gallery = {
+  _id: string
+  _type: 'gallery'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  items?: Array<
+    | {
+        image: {
+          asset?: SanityImageAssetReference
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          alt?: string
+          _type: 'image'
+        }
+        caption?: string
+        _type: 'galleryImage'
+        _key: string
+      }
+    | {
+        video: {
+          asset?: SanityFileAssetReference
+          media?: unknown
+          _type: 'file'
+        }
+        thumbnail: {
+          asset?: SanityImageAssetReference
+          media?: unknown
+          hotspot?: SanityImageHotspot
+          crop?: SanityImageCrop
+          alt?: string
+          _type: 'image'
+        }
+        caption?: string
+        _type: 'galleryVideo'
+        _key: string
+      }
+  >
+}
+
+export type About = {
+  _id: string
+  _type: 'about'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  photos: Array<{
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+    _key: string
+  }>
+  certificates?: Array<{
+    image: {
+      asset?: SanityImageAssetReference
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+    }
+    label: string
+    _key: string
+  }>
 }
 
 export type Settings = {
@@ -455,9 +588,15 @@ export type AllSanitySchemaTypes =
   | Transformation
   | SanityImageCrop
   | SanityImageHotspot
+  | Testimonial
+  | Service
+  | LucideIcon
   | LegalPage
   | Slug
   | Faq
+  | SanityFileAssetReference
+  | Gallery
+  | About
   | Settings
   | Post
   | SanityAssistInstructionTask

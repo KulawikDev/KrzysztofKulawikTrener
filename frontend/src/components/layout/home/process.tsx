@@ -83,12 +83,11 @@ export function Process() {
 				))}
 			</div>
 
-			{/* Decorative "SUKCES" watermark – right edge, large screens only */}
 			<div
 				aria-hidden='true'
 				className='pointer-events-none absolute inset-y-0 -right-[10%] hidden w-96 items-center justify-center select-none xl:flex'>
 				<p
-					className='shrink-0 rotate-90 font-heading text-[443px] leading-[0.85] whitespace-nowrap text-transparent uppercase opacity-10'
+					className='shrink-0 rotate-90 font-heading text-[28rem] leading-[0.85] whitespace-nowrap text-transparent uppercase opacity-10'
 					style={{ WebkitTextStroke: '1px var(--color-primary)' }}>
 					SUKCES
 				</p>

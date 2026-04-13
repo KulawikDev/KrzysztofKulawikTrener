@@ -1,4 +1,4 @@
-import { CogIcon } from '@sanity/icons'
+import { CogIcon, ImagesIcon, UserIcon } from '@sanity/icons'
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list'
 import { ComponentType } from 'react'
 import type { StructureBuilder, StructureResolver } from 'sanity/structure'
@@ -21,9 +21,12 @@ const GROUPED_TYPES: {
       { name: 'post', label: 'Artykuły' },
       { name: 'transformation', label: 'Transformacje' },
       { name: 'service', label: 'Usługi', orderable: true },
+      { name: 'testimonial', label: 'Opinie', orderable: true },
     ],
     [
-      { name: 'settings', label: 'Ustawienia strony', singleton: true, icon: CogIcon }
+      { name: 'settings', label: 'Ustawienia strony', singleton: true, icon: CogIcon },
+      { name: 'about', label: 'Sekcja "O mnie"', singleton: true, icon: UserIcon },
+      { name: 'gallery', label: 'Galeria', singleton: true, icon: ImagesIcon },
     ],
     [
       { name: 'faq', label: 'Często zadawane pytania' },

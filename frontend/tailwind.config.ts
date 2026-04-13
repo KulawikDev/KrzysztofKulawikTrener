@@ -1,5 +1,7 @@
-import type {Config} from 'tailwindcss'
+import type { Config } from 'tailwindcss'
 import typography from '@tailwindcss/typography'
+import svgToDataUri from 'mini-svg-data-uri'
+import flattenColorPalette from 'tailwindcss/lib/util/flattenColorPalette'
 
 export default {
   content: ['./src/**/*.{ts,tsx}', './sanity/**/*.{ts,tsx}'],

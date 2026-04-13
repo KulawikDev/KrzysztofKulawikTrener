@@ -24,7 +24,7 @@ function AnimatedCard({ scrollYProgress, index, total, rotation, data }: Animate
 	const slotStart = index / total
 	const animEnd = slotStart + (1 / total) * 0.6
 
-	const y = useTransform(scrollYProgress, [slotStart, animEnd], ['200vh', '-35vh'])
+	const y = useTransform(scrollYProgress, [slotStart, animEnd], ['100vh', '-10vh'])
 	const springY = useSpring(y, { stiffness: 50, damping: 20 })
 
 	return (
@@ -56,7 +56,7 @@ export function TransformationsSection({ transformations }: { transformations: T
 
 				{/* Cards stack – vertically centred in the remaining space */}
 				<div className='relative flex flex-1 items-center justify-center'>
-					<div className='relative h-[316px] w-full max-w-[880px]'>
+					<div className='relative h-80 w-full max-w-220'>
 						{transformations.map((t, i) => (
 							<AnimatedCard
 								key={t._id}

@@ -97,6 +97,40 @@ export const transformationsQuery = defineQuery(`
   }
 `)
 
+export const aboutQuery = defineQuery(`
+  *[_type == "about"][0] {
+    photos,
+    certificates[] {
+      _key,
+      image,
+      label
+    }
+  }
+`)
+
+export const testimonialsQuery = defineQuery(`
+  *[_type == "testimonial"] | order(orderRank asc, _createdAt asc) {
+    _id,
+    name,
+    quote,
+    image,
+    rating
+  }
+`)
+
+export const galleryQuery = defineQuery(`
+  *[_type == "gallery"][0] {
+    items[] {
+      _key,
+      _type,
+      caption,
+      image,
+      thumbnail,
+      "videoUrl": video.asset->url
+    }
+  }
+`)
+
 export const legalPageQuery = defineQuery(`
   *[_type == "legalPage" && slug.current == $slug][0]{
     _id, title, intro, lastUpdated,

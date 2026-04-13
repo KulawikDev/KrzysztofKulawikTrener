@@ -42,7 +42,7 @@ export function ServiceCard({ name, label, image, icon, ctaLabel }: ServiceData)
 
 			{/* Image panel — desktop only */}
 			<div
-				className='relative hidden shrink-0 overflow-hidden rounded-3xl border border-primary/25 md:block'
+				className='grain-overlay-10% relative hidden shrink-0 overflow-hidden rounded-3xl border border-primary/25 md:block'
 				style={{ width: '280px' }}>
 				{imageUrl ? (
 					<Image src={imageUrl} alt={image?.alt ?? name} fill className='object-cover' draggable={false} />
@@ -51,14 +51,6 @@ export function ServiceCard({ name, label, image, icon, ctaLabel }: ServiceData)
 				)}
 				{/* Golden tint */}
 				<div className='absolute inset-0 bg-primary/15 mix-blend-overlay' />
-				{/* Grain */}
-				<div
-					className='absolute inset-0 opacity-10'
-					style={{
-						backgroundImage: "url('/images/decoration/grain.png')",
-						backgroundSize: '150px'
-					}}
-				/>
 			</div>
 		</div>
 	)

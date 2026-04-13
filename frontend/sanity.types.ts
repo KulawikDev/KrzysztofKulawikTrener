@@ -116,6 +116,39 @@ export type SanityImageHotspot = {
 	width: number
 }
 
+export type Testimonial = {
+	_id: string
+	_type: 'testimonial'
+	_createdAt: string
+	_updatedAt: string
+	_rev: string
+	orderRank?: string
+	name: string
+	quote: Array<{
+		children?: Array<{
+			marks?: Array<string>
+			text?: string
+			_type: 'span'
+			_key: string
+		}>
+		style?: 'normal'
+		listItem?: never
+		markDefs?: null
+		level?: number
+		_type: 'block'
+		_key: string
+	}>
+	image?: {
+		asset?: SanityImageAssetReference
+		media?: unknown
+		hotspot?: SanityImageHotspot
+		crop?: SanityImageCrop
+		alt?: string
+		_type: 'image'
+	}
+	rating: 1 | 2 | 3 | 4 | 5
+}
+
 export type Service = {
 	_id: string
 	_type: 'service'
@@ -174,6 +207,82 @@ export type Faq = {
 	_rev: string
 	question: string
 	answer: string
+}
+
+export type SanityFileAssetReference = {
+	_ref: string
+	_type: 'reference'
+	_weak?: boolean
+	[internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+}
+
+export type Gallery = {
+	_id: string
+	_type: 'gallery'
+	_createdAt: string
+	_updatedAt: string
+	_rev: string
+	items?: Array<
+		| {
+				image: {
+					asset?: SanityImageAssetReference
+					media?: unknown
+					hotspot?: SanityImageHotspot
+					crop?: SanityImageCrop
+					alt?: string
+					_type: 'image'
+				}
+				caption?: string
+				_type: 'galleryImage'
+				_key: string
+		  }
+		| {
+				video: {
+					asset?: SanityFileAssetReference
+					media?: unknown
+					_type: 'file'
+				}
+				thumbnail: {
+					asset?: SanityImageAssetReference
+					media?: unknown
+					hotspot?: SanityImageHotspot
+					crop?: SanityImageCrop
+					alt?: string
+					_type: 'image'
+				}
+				caption?: string
+				_type: 'galleryVideo'
+				_key: string
+		  }
+	>
+}
+
+export type About = {
+	_id: string
+	_type: 'about'
+	_createdAt: string
+	_updatedAt: string
+	_rev: string
+	photos: Array<{
+		asset?: SanityImageAssetReference
+		media?: unknown
+		hotspot?: SanityImageHotspot
+		crop?: SanityImageCrop
+		alt?: string
+		_type: 'image'
+		_key: string
+	}>
+	certificates?: Array<{
+		image: {
+			asset?: SanityImageAssetReference
+			media?: unknown
+			hotspot?: SanityImageHotspot
+			crop?: SanityImageCrop
+			_type: 'image'
+		}
+		label: string
+		_key: string
+	}>
 }
 
 export type Settings = {
@@ -479,11 +588,15 @@ export type AllSanitySchemaTypes =
 	| Transformation
 	| SanityImageCrop
 	| SanityImageHotspot
+	| Testimonial
 	| Service
 	| LucideIcon
 	| LegalPage
 	| Slug
 	| Faq
+	| SanityFileAssetReference
+	| Gallery
+	| About
 	| Settings
 	| Post
 	| SanityAssistInstructionTask
@@ -737,6 +850,101 @@ export type TransformationsQueryResult = Array<{
 }>
 
 // Source: src/sanity/lib/queries.ts
+// Variable: aboutQuery
+// Query: *[_type == "about"][0] {    photos,    certificates[] {      _key,      image,      label    }  }
+export type AboutQueryResult = {
+	photos: Array<{
+		asset?: SanityImageAssetReference
+		media?: unknown
+		hotspot?: SanityImageHotspot
+		crop?: SanityImageCrop
+		alt?: string
+		_type: 'image'
+		_key: string
+	}>
+	certificates: Array<{
+		_key: string
+		image: {
+			asset?: SanityImageAssetReference
+			media?: unknown
+			hotspot?: SanityImageHotspot
+			crop?: SanityImageCrop
+			_type: 'image'
+		}
+		label: string
+	}> | null
+} | null
+
+// Source: src/sanity/lib/queries.ts
+// Variable: testimonialsQuery
+// Query: *[_type == "testimonial"] | order(orderRank asc, _createdAt asc) {    _id,    name,    quote,    image,    rating  }
+export type TestimonialsQueryResult = Array<{
+	_id: string
+	name: string
+	quote: Array<{
+		children?: Array<{
+			marks?: Array<string>
+			text?: string
+			_type: 'span'
+			_key: string
+		}>
+		style?: 'normal'
+		listItem?: never
+		markDefs?: null
+		level?: number
+		_type: 'block'
+		_key: string
+	}>
+	image: {
+		asset?: SanityImageAssetReference
+		media?: unknown
+		hotspot?: SanityImageHotspot
+		crop?: SanityImageCrop
+		alt?: string
+		_type: 'image'
+	} | null
+	rating: 1 | 2 | 3 | 4 | 5
+}>
+
+// Source: src/sanity/lib/queries.ts
+// Variable: galleryQuery
+// Query: *[_type == "gallery"][0] {    items[] {      _key,      _type,      caption,      image,      thumbnail,      "videoUrl": video.asset->url    }  }
+export type GalleryQueryResult = {
+	items: Array<
+		| {
+				_key: string
+				_type: 'galleryImage'
+				caption: string | null
+				image: {
+					asset?: SanityImageAssetReference
+					media?: unknown
+					hotspot?: SanityImageHotspot
+					crop?: SanityImageCrop
+					alt?: string
+					_type: 'image'
+				}
+				thumbnail: null
+				videoUrl: null
+		  }
+		| {
+				_key: string
+				_type: 'galleryVideo'
+				caption: string | null
+				image: null
+				thumbnail: {
+					asset?: SanityImageAssetReference
+					media?: unknown
+					hotspot?: SanityImageHotspot
+					crop?: SanityImageCrop
+					alt?: string
+					_type: 'image'
+				}
+				videoUrl: string | null
+		  }
+	> | null
+} | null
+
+// Source: src/sanity/lib/queries.ts
 // Variable: legalPageQuery
 // Query: *[_type == "legalPage" && slug.current == $slug][0]{    _id, title, intro, lastUpdated,    "slug": slug.current,    sections[]{      _key, title, collapsedByDefault, anchor,      content    },    seoTitle, seoDescription,    noIndex,  }
 export type LegalPageQueryResult = {
@@ -770,6 +978,9 @@ declare module '@sanity/client' {
 		'\n  *[_type == "faq"] | order(orderRank) {\n    question,\n    answer\n  }\n': FaqQueryResult
 		'\n  *[_type == "service"] | order(order asc) {\n    _id,\n    name,\n    label,\n    image,\n    icon,\n    ctaLabel,\n  }\n': ServicesQueryResult
 		'\n  *[_type == "transformation"] | order(_createdAt asc) {\n    _id,\n    name,\n    age,\n    durationMonths,\n    imageBefore,\n    imageAfter,\n    stats[] { _key, label, before, after },\n    description[]{\n      ...,\n      markDefs[]{\n        ...,\n        _type == "link" => {\n          "post": post->slug.current,\n          "legalPage": legalPage->slug.current\n        }\n      }\n    }\n  }\n': TransformationsQueryResult
+		'\n  *[_type == "about"][0] {\n    photos,\n    certificates[] {\n      _key,\n      image,\n      label\n    }\n  }\n': AboutQueryResult
+		'\n  *[_type == "testimonial"] | order(orderRank asc, _createdAt asc) {\n    _id,\n    name,\n    quote,\n    image,\n    rating\n  }\n': TestimonialsQueryResult
+		'\n  *[_type == "gallery"][0] {\n    items[] {\n      _key,\n      _type,\n      caption,\n      image,\n      thumbnail,\n      "videoUrl": video.asset->url\n    }\n  }\n': GalleryQueryResult
 		'\n  *[_type == "legalPage" && slug.current == $slug][0]{\n    _id, title, intro, lastUpdated,\n    "slug": slug.current,\n    sections[]{\n      _key, title, collapsedByDefault, anchor,\n      content\n    },\n    seoTitle, seoDescription,\n    noIndex,\n  }\n': LegalPageQueryResult
 	}
 }
