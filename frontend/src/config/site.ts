@@ -1,22 +1,22 @@
-import { FacebookIcon, InstagramIcon, LucideIcon } from 'lucide-react'
+import { FacebookIcon, InstagramIcon, LinkedinIcon, LucideIcon } from 'lucide-react'
 
 export const siteConfig = {
   name: 'Krzysztof Kulawik',
-  email: 'kontakt@krzysztofkulawik.pl',
+  email: 'krzys.kulawik@gmail.com',
   phone: '+48 668 485 081',
   legalName: '',
   nip: '',
   address: {
     country: 'PL',
-    city: 'Kraków',
-    street: 'ul. Przykładowa 12 / 3',
+    city: 'Chrzanów',
+    street: 'ul. Partyzantów 25A',
     postalCode: '32-500',
     region: 'małopolskie',
   },
-  domain: '',
+  domain: 'https://krzysztofkulawik.pl',
   metadata: {
     default: {
-      title: '',
+      title: 'Trener personalny | Krzysztof Kulawik',
       description: '',
     },
   },
@@ -24,15 +24,21 @@ export const siteConfig = {
     facebook: {
       label: 'Facebook',
       name: '@facebook',
-      value: 'https://www.facebook.com/',
+      value: 'https://www.facebook.com/profile.php?id=61561766288128',
       icon: FacebookIcon,
     },
     instagram: {
       label: 'Instagram',
       name: '@instagram',
-      value: 'https://www.instagram.com/',
+      value: 'https://www.instagram.com/kulawik_krzysztof/',
       icon: InstagramIcon,
     },
+    linkedin: {
+      label: 'LinkedIn',
+      name: '@linkedin',
+      value: 'https://www.linkedin.com/in/krzysztof-kulawik-53165020b/',
+      icon: LinkedinIcon,
+    }
   },
 } satisfies SiteConfig
 

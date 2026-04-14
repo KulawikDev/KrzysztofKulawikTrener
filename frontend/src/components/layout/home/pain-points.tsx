@@ -6,6 +6,7 @@ import Image from 'next/image'
 type Card = {
 	title: string
 	body: React.ReactNode
+	image: string
 	className?: string
 }
 
@@ -17,7 +18,8 @@ const CARDS: Card[] = [
 				Wchodzisz na siłownię i widzisz dziesiątki ćwiczeń, sprzętów i planów z internetu. Każdy mówi coś innego i{' '}
 				<strong className='font-bold'>trudno zdecydować, co tak naprawdę ma sens.</strong>
 			</>
-		)
+		),
+		image: '/images/shapes/icon-1.png'
 	},
 	{
 		title: 'Trenujesz, ale nie widzisz efektów',
@@ -27,26 +29,36 @@ const CARDS: Card[] = [
 				<strong className='font-bold'>ciało praktycznie się nie zmienia</strong>. Pojawia się frustracja i pytanie: czy
 				robię coś źle?
 			</>
-		)
+		),
+		image: '/images/shapes/icon-4.png'
 	},
 	{
 		title: 'Czujesz, że stoisz w miejscu',
-		body: 'Próbujesz różnych rzeczy: inne ćwiczenia, inne treningi, inne metody. Ale zamiast progresu pojawia się chaos.'
+		body: 'Próbujesz różnych rzeczy: inne ćwiczenia, inne treningi, inne metody. Ale zamiast progresu pojawia się chaos.',
+		image: '/images/shapes/icon-3.png'
 	},
 	{
 		title: 'Brakuje ci struktury',
-		body: 'Jeden tydzień trenujesz regularnie, potem wszystko się rozsypuje. Plan z internetu przestaje działać, a motywacja spada.'
+		body: 'Jeden tydzień trenujesz regularnie, potem wszystko się rozsypuje. Plan z internetu przestaje działać, a motywacja spada.',
+		image: '/images/shapes/icon-2.png'
 	}
 ]
 
 // ─── Components ───────────────────────────────────────────────────────────────
 
-function PainCard({ title, body, className }: Card) {
+function PainCard({ title, body, className, image }: Card) {
 	return (
 		<div className={cn('flex flex-col gap-8', className)}>
 			{/* Icon placeholder */}
-			<div className='relative size-24 shrink-0 overflow-hidden rounded-lg'>
-				<Image src='/images/placeholder-image.png' alt='' fill className='object-cover' />
+			<div className='relative size-24 shrink-0 overflow-hidden'>
+				<Image
+					src={image}
+					alt=''
+					className='size-24 object-contain select-none'
+					width={96}
+					height={96}
+					draggable={false}
+				/>
 			</div>
 
 			{/* Content */}
@@ -63,14 +75,6 @@ function PainCard({ title, body, className }: Card) {
 export function PainPoints() {
 	return (
 		<section className='section-padding'>
-			{/*
-			 * Grid layout:
-			 *   mobile  – 1 col, all stacked
-			 *   md      – 2 cols: heading full-width, then cards in pairs
-			 *   lg      – 3 cols, 2 rows:
-			 *               row 1 │ heading (col-span-2) │ card 1 │
-			 *               row 2 │ card 4 │ card 3 │ card 2 │
-			 */}
 			<div className='grid gap-12 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-16 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-20'>
 				{/* Heading ─────────────────────────────────────────────────── */}
 				<div className='flex flex-col gap-3 sm:col-span-2 lg:col-span-2 lg:self-start'>

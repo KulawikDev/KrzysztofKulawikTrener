@@ -11,11 +11,13 @@ export async function POST(req: Request) {
 	try {
 		const body = await req.json()
 
-		const { name, email, message, phone, naekjsdvbgs, recaptchaToken } = ContactEmailValidator.parse(body)
+		const { name, email, message, phone, naekjsdvbgs } = ContactEmailValidator.parse(body)
 
 		if (name) {
 			return new Response('Invalid POST request data passed', { status: 422 })
 		}
+
+		const recaptchaToken = null // TEMPORARY DISABLE RECAPTCHA
 
 		// Verify recaptcha
 		if (recaptchaToken) {

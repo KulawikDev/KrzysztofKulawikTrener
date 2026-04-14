@@ -11,8 +11,7 @@ export const ContactEmailValidator = z.object({
 	phone: z.string().optional(),
 	message: z.string().min(1, {
 		message: 'Proszę wpisać wiadomość'
-	}),
-	recaptchaToken: z.string().optional()
+	})
 })
 
 export type ContactEmailPayload = z.infer<typeof ContactEmailValidator>

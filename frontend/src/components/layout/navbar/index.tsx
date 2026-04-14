@@ -24,7 +24,7 @@ const Navbar = () => {
 		<>
 			<header
 				className={cn(
-					'fixed top-0 left-0 z-60 w-full transition-colors duration-300',
+					'pointer-events-none fixed top-0 left-0 z-60 w-full transition-colors duration-300',
 					!isMenuOpen && 'mix-blend-difference',
 					'[body[data-scroll-locked="1"]_&]:translate-x-[calc(-1/2*var(--removed-body-scroll-bar-size))]'
 				)}>
@@ -34,15 +34,14 @@ const Navbar = () => {
 						!isMenuOpen && '[body:has([data-reverse-nav])_&]:text-background'
 					)}>
 					<nav className='relative flex h-20 items-center justify-between py-4'>
-						<Link href='/' className='not-link z-50 w-max'>
+						<Link href='/' className='not-link pointer-events-auto z-50 w-max'>
 							<Image src={Wordmark} alt='Logo Krzysztof Kulawik' className='h-14 w-auto' />
 							<span className='sr-only'>Strona główna</span>
 						</Link>
 
-						{/* Toggle button – hamburger ↔ X with rotate animation */}
 						<Button
 							size='icon'
-							className='relative size-12 overflow-hidden rounded-full'
+							className='pointer-events-auto relative size-12 overflow-hidden rounded-full'
 							onClick={() => setIsMenuOpen(v => !v)}
 							aria-label={isMenuOpen ? 'Zamknij menu' : 'Otwórz menu'}
 							aria-expanded={isMenuOpen}>

@@ -90,15 +90,19 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				)}
 				<SanityLive onError={handleError} />
 
-				<Suspense>
-					<Navbar />
-				</Suspense>
+				<Providers>
+					<>
+						<Suspense>
+							<Navbar />
+						</Suspense>
 
-				<Providers>{children}</Providers>
+						{children}
 
-				<Suspense>
-					<Footer />
-				</Suspense>
+						<Suspense>
+							<Footer />
+						</Suspense>
+					</>
+				</Providers>
 
 				<Analytics />
 				<SpeedInsights />
