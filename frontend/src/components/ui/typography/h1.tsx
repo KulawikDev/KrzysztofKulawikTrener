@@ -9,10 +9,7 @@ type Props = {
 const H1 = ({ className, children }: Props) => {
 	return (
 		<h1
-			className={cn(
-				'scroll-m-20 font-heading text-4xl !leading-none font-semibold sm:text-5xl lg:text-6xl xl:text-7xl',
-				className
-			)}>
+			className={cn('scroll-m-20 font-heading text-5xl !leading-none sm:text-6xl lg:text-7xl xl:text-8xl', className)}>
 			{children}
 		</h1>
 	)

@@ -3,20 +3,21 @@
  * Learn more: https://www.sanity.io/docs/configuration
  */
 
-import { defineConfig } from 'sanity'
-import { structureTool } from 'sanity/structure'
+import { assist } from '@sanity/assist'
 import { visionTool } from '@sanity/vision'
-import { schemaTypes } from './src/schemaTypes'
-import { structure } from './src/structure'
+import { defineConfig } from 'sanity'
 import { unsplashImageAsset } from 'sanity-plugin-asset-source-unsplash'
+import { lucideIconPicker } from 'sanity-plugin-lucide-icon-picker'
 import {
-  presentationTool,
   defineDocuments,
   defineLocations,
+  presentationTool,
   type DocumentLocation,
 } from 'sanity/presentation'
-import { assist } from '@sanity/assist'
-import { lucideIconPicker } from 'sanity-plugin-lucide-icon-picker'
+import { structureTool } from 'sanity/structure'
+import { BrandLogo } from './src/brand-logo'
+import { schemaTypes } from './src/schemaTypes'
+import { structure } from './src/structure'
 
 // Environment variables for project configuration
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
@@ -47,6 +48,7 @@ function resolveHref(documentType?: string, slug?: string): string | undefined {
 export default defineConfig({
   name: 'default',
   title: 'Studio striptizu',
+  icon: BrandLogo,
 
   projectId,
   dataset,

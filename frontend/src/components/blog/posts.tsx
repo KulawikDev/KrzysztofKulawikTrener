@@ -40,7 +40,7 @@ export const Post = ({ post }: { post: PostType }) => {
 					</div>
 				</div>
 				<H3 className='mb-2 line-clamp-2 text-balance'>{title}</H3>
-				{excerpt && <p className='line-clamp-2 text-sm leading-relaxed text-pretty'>{excerpt}</p>}
+				{excerpt && <p className='line-clamp-2 text-sm leading-relaxed text-pretty text-foreground/75'>{excerpt}</p>}
 			</Link>
 		</article>
 	)

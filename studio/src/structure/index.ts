@@ -1,5 +1,8 @@
-import { CogIcon, ImagesIcon, UserIcon } from '@sanity/icons'
+import {
+  CogIcon, ImagesIcon, UserIcon,
+} from '@sanity/icons'
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list'
+import { BicepsFlexedIcon, StarIcon } from 'lucide-react'
 import { ComponentType } from 'react'
 import type { StructureBuilder, StructureResolver } from 'sanity/structure'
 
@@ -20,8 +23,8 @@ const GROUPED_TYPES: {
     [
       { name: 'post', label: 'Artykuły' },
       { name: 'transformation', label: 'Transformacje' },
-      { name: 'service', label: 'Usługi', orderable: true },
-      { name: 'testimonial', label: 'Opinie', orderable: true },
+      { name: 'service', label: 'Usługi', orderable: true, icon: BicepsFlexedIcon },
+      { name: 'testimonial', label: 'Opinie', orderable: true, icon: StarIcon },
     ],
     [
       { name: 'settings', label: 'Ustawienia strony', singleton: true, icon: CogIcon },
@@ -29,7 +32,6 @@ const GROUPED_TYPES: {
       { name: 'gallery', label: 'Galeria', singleton: true, icon: ImagesIcon },
     ],
     [
-      { name: 'faq', label: 'Często zadawane pytania' },
       { name: 'legalPage', label: 'Strony prawne' },
     ],
   ]
@@ -60,7 +62,7 @@ export const structure: StructureResolver = (S: StructureBuilder, context) =>
             })
           }
           // Handle regular document type lists
-          return S.documentTypeListItem(name).title(label)
+          return S.documentTypeListItem(name).title(label).icon(icon)
         })
         // Add a divider between groups, but not after the last group
         if (index < GROUPED_TYPES.length - 1) {

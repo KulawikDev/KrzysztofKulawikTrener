@@ -199,16 +199,6 @@ export type Slug = {
   source?: string
 }
 
-export type Faq = {
-  _id: string
-  _type: 'faq'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  question: string
-  answer: string
-}
-
 export type SanityFileAssetReference = {
   _ref: string
   _type: 'reference'
@@ -593,7 +583,6 @@ export type AllSanitySchemaTypes =
   | LucideIcon
   | LegalPage
   | Slug
-  | Faq
   | SanityFileAssetReference
   | Gallery
   | About

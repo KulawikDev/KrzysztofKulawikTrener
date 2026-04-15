@@ -40,7 +40,7 @@ export default function CustomPortableText({ className, value }: { className?: s
 			h2: ({ children, value }) => {
 				// Add an anchor to the h2
 				return (
-					<h2 className='group relative font-heading font-medium'>
+					<h2 className='group relative font-heading text-4xl font-medium text-balance sm:text-5xl lg:text-6xl'>
 						{children}
 						<a
 							href={`#${value?._key}`}
@@ -71,7 +71,7 @@ export default function CustomPortableText({ className, value }: { className?: s
 	}
 
 	return (
-		<div className={['prose-a:text-primary prose', className].filter(Boolean).join(' ')}>
+		<div className={['prose prose-invert prose-a:text-primary', className].filter(Boolean).join(' ')}>
 			<PortableText components={components} value={value} />
 		</div>
 	)

@@ -10,7 +10,7 @@ const H3 = ({ className, children }: Props) => {
 	return (
 		<h3
 			className={cn(
-				'scroll-m-20 font-heading text-lg leading-tight font-medium text-balance md:text-xl lg:text-2xl',
+				'scroll-m-20 font-heading text-2xl leading-[1.15]! font-medium text-balance md:text-3xl',
 				className
 			)}>
 			{children}

@@ -23,7 +23,7 @@ export default defineCliConfig({
     overloadClientMethods: true,
   },
   deployment: {
-    appId: process.env.SANITY_STUDIO_APP_ID || '<your app ID>',
+    appId: process.env.SANITY_STUDIO_APP_ID,
     autoUpdates: true,
   },
 })
