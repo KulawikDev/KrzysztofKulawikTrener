@@ -12,17 +12,17 @@ type Step = {
 const STEPS: Step[] = [
 	{
 		title: 'CEL',
-		image: '/images/process/cel.jpg',
+		image: '/images/process/cel.webp',
 		description: 'Najpierw ustalamy, do czego dążysz i co realnie chcesz osiągnąć podczas naszej współpracy.'
 	},
 	{
 		title: 'STRATEGIA',
-		image: '/images/process/strategia.png',
+		image: '/images/process/strategia.webp',
 		description: 'Dobieramy działania do Twojego poziomu, możliwości, ograniczeń i codziennego rytmu życia.'
 	},
 	{
 		title: 'PROCES',
-		image: '/images/process/proces.jpg',
+		image: '/images/process/proces.webp',
 		description: 'Budujemy regularność, technikę i progres krok po kroku - bez chaosu i bez zgadywania.'
 	},
 	{

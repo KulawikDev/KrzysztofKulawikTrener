@@ -226,7 +226,7 @@
 @utility grain-overlay-* {
 	&::after {
 		content: '';
-		background-image: url('/images/decoration/grain.png');
+		background-image: url('/images/decoration/grain.webp');
 		background-size: 150px;
 		position: absolute;
 		inset: 0;

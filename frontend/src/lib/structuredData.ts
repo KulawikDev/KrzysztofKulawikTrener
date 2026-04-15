@@ -10,7 +10,7 @@ export const OrganisationSchema = (): WithContext<Organization> => {
 		'@type': 'Organization',
 		name: siteConfig.legalName,
 		url: BASE_URL,
-		logo: `${BASE_URL}/assets/logo-wordmark.png`,
+		logo: `${BASE_URL}/assets/wordmark.svg`,
 		email: siteConfig.email,
 		telephone: siteConfig.phone,
 		legalName: siteConfig.legalName,

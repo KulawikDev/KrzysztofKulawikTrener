@@ -1,7 +1,7 @@
 import { CalendlyButton } from '@/components/calendly/calendly-button'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
-import FooterImage from '~/public/images/process/cel.jpg'
+import FooterImage from '~/public/images/process/cel.webp'
 import { FooterContact } from './contact'
 import HADAStudiosLogo from '~/public/assets/hadastudios.png'
 import Link from 'next/link'

@@ -19,7 +19,7 @@ const CARDS: Card[] = [
 				<strong className='font-bold'>trudno zdecydować, co tak naprawdę ma sens.</strong>
 			</>
 		),
-		image: '/images/shapes/icon-1.png'
+		image: '/images/shapes/icon-1.webp'
 	},
 	{
 		title: 'Trenujesz, ale nie widzisz efektów',
@@ -30,17 +30,17 @@ const CARDS: Card[] = [
 				robię coś źle?
 			</>
 		),
-		image: '/images/shapes/icon-4.png'
+		image: '/images/shapes/icon-4.webp'
 	},
 	{
 		title: 'Czujesz, że stoisz w miejscu',
 		body: 'Próbujesz różnych rzeczy: inne ćwiczenia, inne treningi, inne metody. Ale zamiast progresu pojawia się chaos.',
-		image: '/images/shapes/icon-3.png'
+		image: '/images/shapes/icon-3.webp'
 	},
 	{
 		title: 'Brakuje ci struktury',
 		body: 'Jeden tydzień trenujesz regularnie, potem wszystko się rozsypuje. Plan z internetu przestaje działać, a motywacja spada.',
-		image: '/images/shapes/icon-2.png'
+		image: '/images/shapes/icon-2.webp'
 	}
 ]
 

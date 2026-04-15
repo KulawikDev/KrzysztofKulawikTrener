@@ -34,7 +34,7 @@ export function TransformationCard({
 				<div
 					className='absolute inset-0 rounded-4xl opacity-25'
 					style={{
-						backgroundImage: "url('/images/decoration/grain.png')",
+						backgroundImage: "url('/images/decoration/grain.webp')",
 						backgroundSize: '150px',
 						backgroundPosition: 'top left'
 					}}

@@ -1,5 +1,6 @@
 'use client'
 
+import { CalendlyButton } from '@/components/calendly/calendly-button'
 import { Button } from '@/components/ui/button'
 import { NavigationLink } from '@/config/links'
 import { siteConfig } from '@/config/site'
@@ -80,7 +81,7 @@ export function NavPanel({ isOpen, onClose, links }: NavPanelProps) {
 						aria-hidden='true'
 						className='pointer-events-none absolute inset-0 opacity-25 mix-blend-overlay'
 						style={{
-							backgroundImage: "url('/images/decoration/grain.png')",
+							backgroundImage: "url('/images/decoration/grain.webp')",
 							backgroundSize: '150px',
 							backgroundPosition: 'top left'
 						}}
@@ -156,9 +157,9 @@ export function NavPanel({ isOpen, onClose, links }: NavPanelProps) {
 								</div>
 
 								{/* CTA button */}
-								<Button onClick={onClose} className='w-full lg:w-auto'>
-									Umów darmową rozmowę
-								</Button>
+								<CalendlyButton>
+									<Button className='w-full lg:w-auto'>Umów darmową rozmowę</Button>
+								</CalendlyButton>
 							</motion.div>
 						</div>
 					</div>

@@ -1,6 +1,7 @@
 import Image from 'next/image'
-import HeroPerson from '~/public/images/hero/hero-person.png'
-import NamePatternImg from '~/public/images/decoration/name-pattern-vertical.png'
+import HeroPerson from '~/public/images/hero/hero-person.webp'
+import NamePatternImg from '~/public/images/decoration/name-pattern-vertical.webp'
+import HeroImage from '~/public/images/hero/hero-image.webp'
 
 export function Hero() {
 	return (
@@ -8,11 +9,11 @@ export function Hero() {
 			{/* Background image with dark overlay */}
 			<div className='overlay-75% absolute inset-0 -z-10 container-fill'>
 				<Image
-					src='/images/hero/hero-image.jpg'
-					alt=''
-					fill
-					className='object-cover object-center'
-					priority
+					src={HeroImage}
+					alt='Zdjęcie osoby ćwiczącej na siłowni w Chrzanowie'
+					className='size-full object-cover object-center'
+					preload
+					sizes='100vw'
 					aria-hidden='true'
 				/>
 			</div>
@@ -40,7 +41,9 @@ export function Hero() {
 						src={NamePatternImg}
 						alt=''
 						draggable={false}
+						width={500}
 						className='pointer-events-none h-full w-auto object-cover opacity-10 md:block'
+						aria-hidden='true'
 					/>
 				</div>
 				{/* Person image */}
@@ -49,9 +52,10 @@ export function Hero() {
 					className='pointer-events-none absolute right-0 bottom-0 z-20 block h-full max-h-105 w-auto sm:max-h-135 lg:max-h-195'>
 					<Image
 						src={HeroPerson}
-						alt=''
+						alt='Zdjęcie trenera personalnego Krzysztofa Kulawika'
 						className='h-full max-h-full w-auto max-w-none object-contain object-bottom'
-						priority
+						height={800}
+						preload
 					/>
 				</div>
 				<div className='relative z-30 flex h-full w-full -translate-x-[16%] flex-col items-center justify-end pb-2 opacity-0 mix-blend-difference lg:opacity-100'>
@@ -71,7 +75,7 @@ export function Hero() {
 				aria-hidden='true'
 				className='pointer-events-none absolute inset-0 z-10 container-fill opacity-40 mix-blend-overlay'
 				style={{
-					backgroundImage: "url('/images/decoration/grain.png')",
+					backgroundImage: "url('/images/decoration/grain.webp')",
 					backgroundSize: '150px',
 					backgroundPosition: 'top left'
 				}}
