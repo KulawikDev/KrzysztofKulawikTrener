@@ -1,5 +1,5 @@
+import { CalendlyButton } from '@/components/calendly/calendly-button'
 import { Button } from '@/components/ui/button'
-import Link from 'next/link'
 
 export function Intro() {
 	return (
@@ -8,10 +8,9 @@ export function Intro() {
 				Pomagam początkującym, osobom zapracowanym, sportowcom i trenującym rekreacyjnie budować lepszą formę, większą
 				sprawność i trwałe rezultaty poprzez trening personalny dopasowany do celu, poziomu i stylu życia.
 			</p>
-
-			<Button asChild>
-				<Link href={'#kontakt'}>Umów darmową rozmowę</Link>
-			</Button>
+			<CalendlyButton>
+				<Button>Umów darmową rozmowę</Button>
+			</CalendlyButton>
 		</section>
 	)
 }

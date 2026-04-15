@@ -1,3 +1,4 @@
+import { CalendlyButton } from '@/components/calendly/calendly-button'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import FooterImage from '~/public/images/process/cel.jpg'
@@ -9,15 +10,15 @@ export const Footer = (props: Props) => {
 	const year = new Date().getFullYear() ?? 2026
 
 	return (
-		<footer className='relative grid-container container-fill mt-24 overflow-hidden rounded-t-[4rem]'>
+		<footer className='relative grid-container container-fill mt-24 overflow-hidden rounded-t-4xl md:rounded-t-[4rem]'>
 			{/* Background image */}
 			<div className='overlay-75% absolute inset-0 container-fill size-full'>
 				<Image src={FooterImage} alt='' className='size-full object-cover object-center' />
 			</div>
 
 			{/* CTA */}
-			<div className='relative grid-container container-fill space-y-24 bg-grid-128 bg-grid-white/5 py-24'>
-				<h2 className='font-heading leading-[0.95]! mix-blend-difference 2xl:text-[12rem]'>
+			<div className='relative grid-container container-fill space-y-16 bg-grid-128 bg-grid-white/5 py-16 md:space-y-24 md:py-24'>
+				<h2 className='font-heading text-7xl leading-[0.95]! mix-blend-difference sm:text-8xl md:text-9xl lg:text-[10rem] xl:text-[12rem]'>
 					<span className='block text-primary'>
 						Zmień swoje <br /> życie{' '}
 					</span>
@@ -25,12 +26,14 @@ export const Footer = (props: Props) => {
 				</h2>
 
 				<div className='space-y-3'>
-					<Button
-						variant={'default'}
-						className='h-auto w-full rounded-[3rem] bg-transparent py-12 text-6xl leading-none text-primary mix-blend-difference outline-4 outline-primary hover:bg-gradient-primary hover:text-primary-foreground'>
-						Umów darmową rozmowę
-					</Button>
-					<p className='w-full text-center leading-none'>
+					<CalendlyButton>
+						<Button
+							variant={'default'}
+							className='h-auto w-full rounded-3xl bg-transparent py-8 text-3xl leading-none text-primary mix-blend-difference outline-4 outline-primary hover:bg-gradient-primary hover:text-primary-foreground sm:rounded-4xl sm:py-10 sm:text-4xl md:rounded-[3rem] md:py-12 md:text-5xl lg:text-6xl'>
+							Umów darmową rozmowę
+						</Button>
+					</CalendlyButton>
+					<p className='w-full text-center text-sm text-balance sm:text-base sm:leading-none'>
 						Bez zobowiązań. Sprawdzimy, czy to dobry kierunek dla Ciebie.
 					</p>
 				</div>

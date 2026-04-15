@@ -19,8 +19,6 @@ type AnimatedCardProps = {
 }
 
 function AnimatedCard({ scrollYProgress, index, total, rotation, data }: AnimatedCardProps) {
-	// Each card owns 1/total of the scroll range.
-	// It animates during the first 60% of that slot, then stays settled.
 	const slotStart = index / total
 	const animEnd = slotStart + (1 / total) * 0.6
 
@@ -34,6 +32,14 @@ function AnimatedCard({ scrollYProgress, index, total, rotation, data }: Animate
 	)
 }
 
+const HEADING = (
+	<h2 className='shrink-0 text-right font-heading text-[clamp(40px,13vw,188px)] leading-[0.9] text-foreground uppercase'>
+		Zobacz jak inni
+		<br />
+		odmienili swoje życie
+	</h2>
+)
+
 export function TransformationsSection({ transformations }: { transformations: TransformationCardProps[] }) {
 	const containerRef = useRef<HTMLDivElement>(null)
 	const { scrollYProgress } = useScroll({
@@ -44,32 +50,37 @@ export function TransformationsSection({ transformations }: { transformations: T
 	const total = transformations.length
 
 	return (
-		// Tall outer div creates the scroll space; inner is sticky
-		<div ref={containerRef} className='relative' style={{ height: `${(total + 1) * 100}vh` }}>
-			<div className='sticky top-0 flex h-dvh flex-col overflow-hidden py-12 lg:py-20 xl:py-24'>
-				{/* Heading – scales to fill container width */}
-				<h2 className='shrink-0 text-right font-heading text-[clamp(40px,13vw,188px)] leading-[0.9] text-foreground uppercase'>
-					Zobacz jak inni
-					<br />
-					odmienili swoje życie
-				</h2>
+		<>
+			{/* ── Mobile: simple vertical stack ────────────────────────────────── */}
+			<div className='flex flex-col gap-6 px-4 py-12 sm:px-6 md:hidden'>
+				{HEADING}
+				<div className='flex flex-col gap-4'>
+					{transformations.map(t => (
+						<TransformationCard key={t._id} {...t} />
+					))}
+				</div>
+			</div>
 
-				{/* Cards stack – vertically centred in the remaining space */}
-				<div className='relative flex flex-1 items-center justify-center'>
-					<div className='relative h-80 w-full max-w-220'>
-						{transformations.map((t, i) => (
-							<AnimatedCard
-								key={t._id}
-								scrollYProgress={scrollYProgress}
-								index={i}
-								total={total}
-								rotation={ROTATIONS[i % ROTATIONS.length]}
-								data={t}
-							/>
-						))}
+			{/* ── md+: scroll-driven stacked animation ─────────────────────────── */}
+			<div ref={containerRef} className='relative hidden md:block' style={{ height: `${(total + 1) * 100}vh` }}>
+				<div className='sticky top-0 flex h-dvh flex-col overflow-hidden py-12 lg:py-20 xl:py-24'>
+					{HEADING}
+					<div className='relative flex flex-1 items-center justify-center'>
+						<div className='relative h-80 w-full max-w-220'>
+							{transformations.map((t, i) => (
+								<AnimatedCard
+									key={t._id}
+									scrollYProgress={scrollYProgress}
+									index={i}
+									total={total}
+									rotation={ROTATIONS[i % ROTATIONS.length]}
+									data={t}
+								/>
+							))}
+						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }

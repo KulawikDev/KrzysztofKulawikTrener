@@ -35,10 +35,6 @@ export async function About() {
 			/>
 
 			<div className='relative'>
-				{/*
-				 * Heading — on desktop it is removed from normal flow (absolute) so
-				 * the grid starts at y = 0. lg:pt-16 on the grid creates the overlap.
-				 */}
 				<h2 className='relative z-10 font-heading text-[clamp(64px,9vw,128px)] leading-[0.85] text-foreground mix-blend-difference lg:absolute lg:top-0 lg:left-[min(10rem,8.5vw)]'>
 					<span className='block'>Poznaj</span>
 					<span className='block'>mnie</span>
@@ -65,6 +61,10 @@ export async function About() {
 								To właśnie sport nauczył mnie dyscypliny, konsekwencji, świadomości ciała i szacunku do procesu. Dziś
 								łączę własne doświadczenie z wiedzą trenerską, aby pomagać innym trenować skutecznie, mądrze i z
 								konkretnym celem.
+								<br />
+								<br />
+								Teraz jako trener personalny Chrzanów, pomagam ludziom osiągać ich cele zdrowotne i sylwetkowe, oferując
+								spersonalizowane programy treningowe i wsparcie na każdym etapie ich fitnessowej podróży.
 							</p>
 						</div>
 
@@ -72,7 +72,6 @@ export async function About() {
 					</div>
 				</div>
 
-				{/* Quote — below both columns, left-side alignment */}
 				<p className='mt-8 ml-[min(19rem,19.5vw)] max-w-sm font-body text-sm leading-normal text-balance text-foreground lg:mt-8 lg:w-1/2'>
 					Nie interesują mnie przypadkowe rozwiązania. Interesuje mnie progres, który ma sens - i który da się utrzymać.
 				</p>

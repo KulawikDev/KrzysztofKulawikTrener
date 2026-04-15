@@ -14,7 +14,18 @@ import { useForm } from 'react-hook-form'
 // ── Steps ─────────────────────────────────────────────────────────────────────
 
 const STEPS = [
-	{ id: 0, question: 'Jak masz na imię?' },
+	{
+		id: 0,
+		question: (
+			<>
+				<span>Wolisz napisać bezpośrednio?</span>
+				<span className='mt-4 block max-w-lg font-body text-sm leading-snug! text-balance text-foreground/75'>
+					Wyślij wiadomość przez formularz, a ja odpiszę tak szybko, jak to możliwe. Możesz też skorzystać z maila lub
+					telefonu podanych poniżej.
+				</span>
+			</>
+		)
+	},
 	{ id: 1, question: 'Jak się z Tobą skontaktować?' },
 	{ id: 2, question: 'Czego szukasz?' }
 ] as const
@@ -117,7 +128,7 @@ export function FooterContact() {
 
 								{/* Question + fields */}
 								<form onSubmit={onSubmit} className='flex flex-col gap-4'>
-									<div className='relative overflow-hidden'>
+									<div className='relative overflow-hidden pt-2'>
 										<AnimatePresence mode='popLayout' custom={dir}>
 											<motion.div
 												key={step}
@@ -141,7 +152,7 @@ export function FooterContact() {
 																firstInputRef.current = el
 															}}
 															{...form.register('naekjsdvbgs')}
-															placeholder='Jan Kowalski'
+															placeholder='Podaj swoje imię'
 															autoComplete='name'
 															error={errors.naekjsdvbgs?.message}
 														/>
@@ -154,14 +165,14 @@ export function FooterContact() {
 																}}
 																{...form.register('email')}
 																type='email'
-																placeholder='jan@example.com'
+																placeholder='Adres e-mail'
 																autoComplete='email'
 																error={errors.email?.message}
 															/>
 															<UnderlineField
 																{...form.register('phone')}
 																type='tel'
-																placeholder='+48 123 456 789 (opcjonalnie)'
+																placeholder='Numer telefonu (opcjonalnie)'
 																autoComplete='tel'
 																error={errors.phone?.message}
 															/>
@@ -252,25 +263,31 @@ export function FooterContact() {
 				</div>
 
 				{/* ── Contact info ─────────────────────────────────────────────────── */}
-				<div className='flex flex-col justify-between gap-12 lg:items-end lg:text-right'>
+				<div className='flex justify-between gap-12 max-sm:flex-col sm:items-end lg:flex-col lg:text-right'>
 					{/* Socials — editorial stacked */}
-					<nav className='flex flex-col gap-2' aria-label='Social media'>
+					<nav className='flex flex-row flex-wrap gap-x-8 gap-y-2 sm:flex-col sm:gap-2' aria-label='Social media'>
 						{Object.values(siteConfig.socials).map(s => (
 							<Link
 								key={s.label}
 								href={s.value}
 								target='_blank'
 								rel='noreferrer'
-								className='group font-heading text-2xl leading-[1.15] text-foreground transition-colors duration-200 md:text-3xl lg:text-4xl'>
+								className='group font-heading text-3xl leading-[1.15] text-foreground transition-colors duration-200 hover:text-primary md:text-3xl lg:text-4xl'>
 								{s.label.toUpperCase()}
 							</Link>
 						))}
 					</nav>
 
 					{/* Phone + email */}
-					<div className='flex flex-col gap-2 font-heading text-2xl leading-[1.15] text-foreground transition-colors duration-200 md:text-3xl lg:text-4xl'>
-						<Link href={`tel:${siteConfig.phone.replace(/\s/g, '')}`}>{siteConfig.phone}</Link>
-						<Link href={`mailto:${siteConfig.email}`}>{siteConfig.email}</Link>
+					<div className='flex flex-col gap-2 font-heading text-3xl leading-[1.15] text-foreground md:text-3xl lg:text-4xl'>
+						<Link
+							href={`tel:${siteConfig.phone.replace(/\s/g, '')}`}
+							className='transition-colors duration-200 hover:text-primary'>
+							{siteConfig.phone}
+						</Link>
+						<Link href={`mailto:${siteConfig.email}`} className='transition-colors duration-200 hover:text-primary'>
+							{siteConfig.email}
+						</Link>
 					</div>
 				</div>
 			</div>
@@ -337,7 +354,7 @@ function SuccessState({ onReset }: { onReset: () => void }) {
 			</motion.div>
 			<div>
 				<p className='font-heading text-[clamp(2.5rem,5vw,5rem)] leading-[0.9] text-foreground'>Świetnie!</p>
-				<p className='mt-2 font-body text-sm text-foreground/50'>
+				<p className='mt-2 font-body text-sm text-balance text-foreground/50'>
 					Twoja wiadomość dotarła. Odezwę się w ciągu 24 godzin.
 				</p>
 			</div>

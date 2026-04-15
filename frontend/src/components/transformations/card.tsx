@@ -20,7 +20,9 @@ export function TransformationCard({
 	return (
 		<div
 			className={cn(
-				'relative flex items-center overflow-hidden rounded-4xl p-3 shadow-[0px_4px_0px_0px_#252525]',
+				'relative grid grid-cols-1 gap-3 overflow-hidden rounded-4xl p-3 shadow-[0px_4px_0px_0px_#252525]',
+				'md:grid-cols-2',
+				'lg:grid-cols-[auto_1fr_auto] lg:items-center lg:gap-0',
 				className
 			)}>
 			{/* Background gradient + noise texture */}
@@ -40,8 +42,8 @@ export function TransformationCard({
 			</div>
 
 			{/* Before image */}
-			<div className='relative z-10 shrink-0'>
-				<div className='relative h-72.5 w-58.75 overflow-hidden rounded-3xl'>
+			<div className='relative z-10 order-1'>
+				<div className='relative h-56 w-full overflow-hidden rounded-3xl md:h-64 lg:h-72.5 lg:w-58.75'>
 					{beforeImageUrl ? (
 						<Image
 							src={beforeImageUrl}
@@ -59,8 +61,28 @@ export function TransformationCard({
 				</div>
 			</div>
 
+			{/* After image */}
+			<div className='relative z-10 order-2 lg:order-3'>
+				<div className='relative h-56 w-full overflow-hidden rounded-3xl border border-primary/50 shadow-[-2px_2px_8px_0px_oklch(from_var(--primary)_l_c_h/0.05)] md:h-64 lg:h-72.5 lg:w-56.75'>
+					{afterImageUrl ? (
+						<Image
+							src={afterImageUrl}
+							alt={imageAfter?.alt ?? `${name} po`}
+							fill
+							className='object-cover'
+							draggable={false}
+						/>
+					) : (
+						<div className='size-full bg-secondary' />
+					)}
+				</div>
+				<div className='absolute right-0 bottom-0 flex items-center justify-center rounded-tl-xl rounded-br-3xl bg-primary px-4 py-2'>
+					<span className='font-heading text-xl leading-none text-primary-foreground uppercase'>Po</span>
+				</div>
+			</div>
+
 			{/* Content */}
-			<div className='relative z-10 flex min-h-0 min-w-0 flex-1 flex-col gap-3 self-stretch px-8 py-6'>
+			<div className='relative z-10 order-3 flex min-h-0 min-w-0 flex-col gap-3 self-stretch p-5 md:col-span-2 lg:order-2 lg:col-span-1 lg:px-8 lg:py-6'>
 				{/* Header */}
 				<div className='flex flex-col gap-1'>
 					<div className='w-fit rounded-full bg-background px-2 py-1'>
@@ -74,7 +96,7 @@ export function TransformationCard({
 
 				{/* Stats */}
 				<div className='flex flex-col gap-6'>
-					<div className='flex items-start gap-8'>
+					<div className='flex items-start gap-4 sm:gap-6 md:gap-8'>
 						{/* Duration + stat labels column */}
 						<div className='flex flex-col gap-2.5'>
 							<span className='font-heading text-xl leading-[1.15] whitespace-nowrap text-secondary-foreground uppercase'>
@@ -128,26 +150,6 @@ export function TransformationCard({
 							className='max-w-71.25 text-xs! leading-[1.4]! text-secondary-foreground/75 [&_p]:text-xs [&_p]:leading-[1.4] [&_p]:text-secondary-foreground/75'
 						/>
 					)}
-				</div>
-			</div>
-
-			{/* After image */}
-			<div className='relative z-10 shrink-0'>
-				<div className='relative h-72.5 w-56.75 overflow-hidden rounded-3xl border border-primary/50 shadow-[-2px_2px_8px_0px_oklch(from_var(--primary)_l_c_h/0.05)]'>
-					{afterImageUrl ? (
-						<Image
-							src={afterImageUrl}
-							alt={imageAfter?.alt ?? `${name} po`}
-							fill
-							className='object-cover'
-							draggable={false}
-						/>
-					) : (
-						<div className='size-full bg-secondary' />
-					)}
-				</div>
-				<div className='absolute right-0 bottom-0 flex items-center justify-center rounded-tl-xl rounded-br-3xl bg-primary px-4 py-2'>
-					<span className='font-heading text-xl leading-none text-primary-foreground uppercase'>Po</span>
 				</div>
 			</div>
 		</div>

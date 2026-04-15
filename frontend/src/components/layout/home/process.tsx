@@ -23,7 +23,7 @@ const STEPS: Step[] = [
 	{
 		title: 'PROCES',
 		image: '/images/process/proces.jpg',
-		description: 'Budujemy regularność, technikę i progres krok po kroku – bez chaosu i bez zgadywania.'
+		description: 'Budujemy regularność, technikę i progres krok po kroku - bez chaosu i bez zgadywania.'
 	},
 	{
 		title: 'REZULTAT',
@@ -37,19 +37,18 @@ const STEPS: Step[] = [
 // ─── Step row ─────────────────────────────────────────────────────────────────
 
 function ProcessStep({ title, image, description, descriptionOpacity }: Step) {
-	const textSizeClass = 'text-[clamp(64px,16.32vw,235px)]'
+	const textSizeClass = 'text-[clamp(4rem,25vw,10rem)] md:text-[clamp(4rem,16vw,15rem)]'
 
 	return (
 		<div className='flex flex-col gap-3 md:flex-row md:items-center md:justify-between md:py-0'>
-			{/* Big label */}
 			{image ? (
 				<span
-					className={cn('shrink-0 bg-clip-text font-heading leading-[0.85]! text-transparent uppercase', textSizeClass)}
+					className={cn(
+						'shrink-0 bg-cover bg-clip-text bg-center font-heading leading-[0.85]! uppercase md:text-transparent md:[-webkit-text-stroke:1.5px_var(--color-primary)]',
+						textSizeClass
+					)}
 					style={{
-						backgroundImage: `url('${image}')`,
-						backgroundSize: 'cover',
-						backgroundPosition: 'center',
-						WebkitTextStroke: '1.5px var(--color-primary)'
+						backgroundImage: `url('${image}')`
 					}}>
 					{title}
 				</span>
@@ -59,7 +58,6 @@ function ProcessStep({ title, image, description, descriptionOpacity }: Step) {
 				</span>
 			)}
 
-			{/* Description */}
 			<p
 				className={cn(
 					'max-w-sm font-body text-base leading-relaxed text-balance md:w-[340px] md:max-w-none md:shrink-0',
@@ -77,7 +75,7 @@ export function Process() {
 	return (
 		<section className='relative section-padding'>
 			{/* Steps */}
-			<div className='flex flex-col'>
+			<div className='flex flex-col gap-12 md:gap-0'>
 				{STEPS.map(step => (
 					<ProcessStep key={step.title} {...step} />
 				))}
@@ -89,7 +87,7 @@ export function Process() {
 				<p
 					className='shrink-0 rotate-90 font-heading text-[28rem] leading-[0.85] whitespace-nowrap text-transparent uppercase opacity-10'
 					style={{ WebkitTextStroke: '1px var(--color-primary)' }}>
-					SUKCES
+					Sukces
 				</p>
 			</div>
 		</section>

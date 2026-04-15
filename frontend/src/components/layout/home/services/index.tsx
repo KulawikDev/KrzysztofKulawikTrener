@@ -17,7 +17,7 @@ export async function Services() {
 				<p
 					className='shrink-0 rotate-12 font-heading text-[min(55vw,789px)] leading-[0.85] whitespace-nowrap text-transparent uppercase opacity-10'
 					style={{ WebkitTextStroke: '1px var(--color-primary)' }}>
-					FORMA
+					Forma
 				</p>
 			</div>
 
@@ -39,9 +39,9 @@ export async function Services() {
 					withCursorFollower
 					className='overflow-x-visible'>
 					<CarouselViewport className='overflow-visible'>
-						<CarouselContainer className='-ml-9'>
+						<CarouselContainer className='-ml-5'>
 							{data.map(service => (
-								<div key={service._id} className='shrink-0 basis-[min(calc(100vw-2rem),800px)] pl-9'>
+								<div key={service._id} className='shrink-0 basis-[min(calc(100vw-2rem),800px)] pl-5'>
 									<ServiceCard {...service} />
 								</div>
 							))}

@@ -70,11 +70,9 @@ export async function Gallery() {
 	if (!items.length) return null
 
 	return (
-		<section id='galeria' className='grid-container container-fill section-padding md:pt-0'>
+		<section id='galeria' className='grid-container container-fill section-padding max-md:mt-12 md:pt-0'>
 			<div className='relative flex flex-col gap-8 md:gap-12'>
-				<h2
-					className='mx-auto -mb-28 shrink-0 text-center font-heading text-[16rem] leading-[0.85] whitespace-nowrap text-transparent uppercase opacity-10'
-					style={{ WebkitTextStroke: '1.5px var(--color-primary)' }}>
+				<h2 className='mx-auto shrink-0 text-center font-heading text-[clamp(4rem,16vw,16rem)] leading-[0.85] whitespace-nowrap text-primary uppercase md:-mb-[min(8vw,7rem)] md:text-transparent md:opacity-15 md:[-webkit-text-stroke:1.5px_var(--color-primary)]'>
 					Tak działamy
 				</h2>
 				<GalleryGrid items={items} />

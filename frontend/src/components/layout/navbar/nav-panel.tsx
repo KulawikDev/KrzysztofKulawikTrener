@@ -64,7 +64,7 @@ export function NavPanel({ isOpen, onClose, links }: NavPanelProps) {
 			{isOpen && (
 				<motion.div
 					key='nav-panel'
-					className='fixed inset-0 z-[50] overflow-hidden bg-background'
+					className='fixed inset-0 z-40 overflow-hidden bg-background'
 					variants={panelVariants}
 					initial='hidden'
 					animate='visible'

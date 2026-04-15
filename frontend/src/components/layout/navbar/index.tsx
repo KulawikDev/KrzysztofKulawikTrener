@@ -24,7 +24,7 @@ const Navbar = () => {
 		<>
 			<header
 				className={cn(
-					'pointer-events-none fixed top-0 left-0 z-60 w-full transition-colors duration-300',
+					'pointer-events-none fixed top-0 left-0 z-50 w-full transition-colors duration-300',
 					!isMenuOpen && 'mix-blend-difference',
 					'[body[data-scroll-locked="1"]_&]:translate-x-[calc(-1/2*var(--removed-body-scroll-bar-size))]'
 				)}>

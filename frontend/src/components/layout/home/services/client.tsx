@@ -1,10 +1,8 @@
 'use client'
 
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { type PropsWithChildren } from 'react'
-
-import { CarouselContainer, CarouselProvider, CarouselViewport, useCarousel } from '@/components/carousel/carousel'
+import { useCarousel } from '@/components/carousel/carousel'
 import { cn } from '@/lib/utils'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 type ServicePill = { _id: string; label: string }
 
@@ -12,7 +10,7 @@ function ServicesPills({ services }: { services: ServicePill[] }) {
 	const { selectedIndex, scrollTo } = useCarousel()
 
 	return (
-		<div className='flex flex-wrap gap-2'>
+		<div className='hidden flex-wrap gap-2 md:flex'>
 			{services.map((s, i) => (
 				<button
 					key={s._id}
@@ -26,6 +24,17 @@ function ServicesPills({ services }: { services: ServicePill[] }) {
 					{s.label}
 				</button>
 			))}
+		</div>
+	)
+}
+
+function SlidesCounter({ services }: { services: ServicePill[] }) {
+	const { selectedIndex } = useCarousel()
+
+	return (
+		<div className='tracking-wider uppercase md:hidden'>
+			<span className='text-2xl text-foreground'>{selectedIndex + 1}</span>
+			<span className='text-lg text-foreground/50'>/{services.length}</span>
 		</div>
 	)
 }
@@ -63,6 +72,7 @@ export function ServicesControls({ services }: { services: ServicePill[] }) {
 	return (
 		<div className='mt-8 flex items-center justify-between gap-4'>
 			<ServicesPills services={services} />
+			<SlidesCounter services={services} />
 			<ServicesArrows />
 		</div>
 	)

@@ -176,13 +176,13 @@ function LightboxModal() {
 
 	return (
 		<Dialog open={open} onOpenChange={v => !v && close()}>
-			<DialogContent className='max-w-7xl overflow-hidden border-border/5 p-0 [&>button]:hidden'>
+			<DialogContent className='z-60 max-w-7xl overflow-hidden border-border/5 p-0 max-md:h-full [&>button]:hidden'>
 				<DialogTitle className='sr-only'>Lightbox</DialogTitle>
 				<DialogDescription className='sr-only'>
 					Użyj strzałek, aby przejść do poprzedniego lub następnego elementu. Naciśnij Escape, aby zamknąć.
 				</DialogDescription>
 
-				<div className='relative bg-black'>
+				<div className='relative flex min-w-0 flex-col bg-black'>
 					{/* Close */}
 					<Button
 						variant='ghost'
@@ -193,7 +193,9 @@ function LightboxModal() {
 					</Button>
 
 					{/* Main slide area — ref keeps querySelectorAll scoped away from the thumbnail strip */}
-					<div ref={slideAreaRef} className='relative aspect-video overflow-hidden select-none'>
+					<div
+						ref={slideAreaRef}
+						className='relative aspect-9/16 overflow-hidden select-none max-md:grow md:aspect-video'>
 						<AnimatePresence mode='wait' custom={directionRef.current}>
 							<motion.div
 								key={index}
