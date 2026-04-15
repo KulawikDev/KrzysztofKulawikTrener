@@ -136,7 +136,7 @@ export function CarouselProvider({
 
 	return (
 		<CarouselContext.Provider value={value}>
-			<div ref={containerRef} className={cn('relative overflow-x-clip', className)}>
+			<div ref={containerRef} className={cn('group/carousel relative overflow-x-clip', className)}>
 				{withCursorFollower ? (
 					<CursorFollower containerRef={containerRef} isHovering={isHovering} className={cursorFollowerClassName} />
 				) : null}
@@ -177,6 +177,7 @@ function CursorFollower({
 }) {
 	const cursorX = useMotionValue(-100)
 	const cursorY = useMotionValue(-100)
+	const [isPressed, setIsPressed] = useState(false)
 
 	const springConfig = { damping: 25, stiffness: 300 }
 	const cursorXSpring = useSpring(cursorX, springConfig)
@@ -192,9 +193,20 @@ function CursorFollower({
 			cursorY.set(e.clientY - rect.top)
 		}
 
+		const onDown = () => setIsPressed(true)
+		const onUp = () => setIsPressed(false)
+
 		const throttledMouseMove = throttle(handleMouseMove, 16)
 		container.addEventListener('mousemove', throttledMouseMove)
-		return () => container.removeEventListener('mousemove', throttledMouseMove)
+		container.addEventListener('mousedown', onDown)
+		container.addEventListener('mouseup', onUp)
+		container.addEventListener('mouseleave', onUp)
+		return () => {
+			container.removeEventListener('mousemove', throttledMouseMove)
+			container.removeEventListener('mousedown', onDown)
+			container.removeEventListener('mouseup', onUp)
+			container.removeEventListener('mouseleave', onUp)
+		}
 	}, [containerRef, cursorX, cursorY])
 
 	return (
@@ -209,38 +221,45 @@ function CursorFollower({
 						translateY: '-50%'
 					}}
 					initial={{ scale: 0, opacity: 0 }}
-					animate={{ scale: 1, opacity: 1 }}
+					animate={{ scale: isPressed ? 0.9 : 1, opacity: 1 }}
 					exit={{ scale: 0, opacity: 0 }}
-					transition={{ duration: 0.2 }}>
+					transition={{ duration: 0.2, ease: 'backOut' }}>
+					{/* Left chevron */}
+					<motion.svg
+						width='9'
+						height='14'
+						viewBox='0 0 9 14'
+						fill='none'
+						stroke='white'
+						strokeWidth='2.5'
+						strokeLinecap='round'
+						strokeLinejoin='round'
+						animate={{ x: [0, -3, 0], opacity: [0.6, 1, 0.6] }}
+						transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}>
+						<path d='M7 1 1.5 7 7 13' />
+					</motion.svg>
+
+					{/* Center circle */}
 					<motion.div
-						className='absolute h-24 w-24 rounded-full border border-primary/40'
-						animate={{ rotate: 360 }}
-						transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+						className='mx-2.5 size-10 rounded-full border-2 border-white'
+						animate={{ scale: [0.98, 1.02, 0.98] }}
+						transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
 					/>
 
-					<div className='relative flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-primary'>
-						<motion.div
-							className='absolute inset-0 bg-linear-to-r from-transparent via-white/30 to-transparent'
-							animate={{ x: ['-100%', '100%'] }}
-							transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 2 }}
-						/>
-
-						<div className='relative flex flex-col items-center justify-center text-primary-foreground'>
-							<motion.div animate={{ y: [0, -2, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
-								<svg
-									width='20'
-									height='20'
-									viewBox='0 0 24 24'
-									fill='none'
-									stroke='currentColor'
-									strokeWidth='2'
-									className='mb-0.5'>
-									<path d='M5 12h14M12 5l7 7-7 7' />
-								</svg>
-							</motion.div>
-							<span className='text-[9px] font-bold tracking-wider uppercase'>Zobacz</span>
-						</div>
-					</div>
+					{/* Right chevron */}
+					<motion.svg
+						width='9'
+						height='14'
+						viewBox='0 0 9 14'
+						fill='none'
+						stroke='white'
+						strokeWidth='2.5'
+						strokeLinecap='round'
+						strokeLinejoin='round'
+						animate={{ x: [0, 3, 0], opacity: [0.6, 1, 0.6] }}
+						transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}>
+						<path d='M2 1l5.5 6L2 13' />
+					</motion.svg>
 				</motion.div>
 			)}
 		</AnimatePresence>

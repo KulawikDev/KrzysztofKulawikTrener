@@ -147,7 +147,7 @@ export function NavPanel({ isOpen, onClose, links }: NavPanelProps) {
 												href={value}
 												target='_blank'
 												rel='noopener noreferrer'
-												className='flex items-center gap-2 font-heading text-sm tracking-wider text-muted-foreground uppercase transition-colors hover:text-foreground'>
+												className='flex items-center gap-2 font-heading text-base tracking-wider text-muted-foreground uppercase transition-colors hover:text-primary md:text-lg lg:text-xl'>
 												<Icon className='size-4' />
 												{label}
 											</a>

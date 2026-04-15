@@ -14,7 +14,7 @@ export const Testimonials = async (props: Props) => {
 	}
 
 	return (
-		<section className=''>
+		<section id='opinie' className='scroll-m-24'>
 			<TestimonialsCarousel testimonials={testimonials} />
 		</section>
 	)

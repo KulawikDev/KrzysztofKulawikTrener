@@ -79,6 +79,7 @@ export function GalleryGrid({ items }: { items: GalleryItem[] }) {
 						className='mb-2 break-inside-avoid max-sm:nth-[n+7]:hidden sm:max-lg:nth-[n+10]:hidden md:mb-3 lg:max-xl:nth-[n+9]:hidden'>
 						<LightboxTrigger index={i} className='block w-full'>
 							{item.type === 'image' ? <ImageTile item={item} priority={i < 6} /> : <VideoTile item={item} />}
+							<span className='sr-only'>Otwórz {item.type === 'image' ? 'obraz' : 'wideo'} w galerii</span>
 						</LightboxTrigger>
 					</div>
 				))}
@@ -101,12 +102,12 @@ function ImageTile({ item, priority }: { item: GalleryImageItem; priority: boole
 				blurDataURL={item.blurDataURL}
 				// responsive sizes per column count
 				sizes='(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw'
-				className='pointer-events-none w-full object-cover transition-transform duration-500 will-change-transform group-hover:scale-[1.04]'
+				className='pointer-events-none size-full object-cover transition-transform duration-500 will-change-transform group-hover:scale-[1.04]'
 				priority={priority}
 				draggable={false}
 			/>
 			{item.caption && (
-				<div className='absolute inset-x-0 bottom-0 translate-y-full bg-black/50 px-2 py-1.5 text-xs leading-snug text-white backdrop-blur-sm transition-transform duration-300 group-hover:translate-y-0'>
+				<div className='absolute inset-x-0 bottom-0 mx-1.5 translate-y-[calc(100%+0.25rem)] rounded-md bg-black/25 px-2 py-1.5 text-xs leading-snug text-white backdrop-blur-sm transition-transform duration-300 group-hover:-translate-y-1.5'>
 					{item.caption}
 				</div>
 			)}
@@ -144,7 +145,7 @@ function VideoTile({ item }: { item: GalleryVideoItem }) {
 			</div>
 
 			{item.caption && (
-				<div className='absolute inset-x-0 bottom-0 translate-y-full bg-black/50 px-2 py-1.5 text-xs leading-snug text-white backdrop-blur-sm transition-transform duration-300 group-hover:translate-y-0'>
+				<div className='absolute inset-x-0 bottom-0 mx-1.5 translate-y-[calc(100%+0.25rem)] rounded-md bg-black/25 px-2 py-1.5 text-xs leading-snug text-white backdrop-blur-sm transition-transform duration-300 group-hover:-translate-y-1.5'>
 					{item.caption}
 				</div>
 			)}

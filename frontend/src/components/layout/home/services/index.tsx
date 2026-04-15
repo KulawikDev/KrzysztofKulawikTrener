@@ -1,4 +1,5 @@
 import { CarouselContainer, CarouselProvider, CarouselViewport } from '@/components/carousel/carousel'
+import { CalendlyButton } from '@/components/calendly/calendly-button'
 import { sanityFetch } from '@/sanity/lib/live'
 import { servicesQuery } from '@/sanity/lib/queries'
 import { ServiceCard } from './card'
@@ -10,7 +11,7 @@ export async function Services() {
 	if (!data?.length) return null
 
 	return (
-		<section className='relative grid-container container-fill section-padding'>
+		<section id='oferta' className='relative grid-container container-fill section-padding scroll-m-8'>
 			<div
 				aria-hidden='true'
 				className='pointer-events-none absolute inset-0 flex items-center justify-center select-none'>
@@ -42,7 +43,9 @@ export async function Services() {
 						<CarouselContainer className='-ml-5'>
 							{data.map(service => (
 								<div key={service._id} className='shrink-0 basis-[min(calc(100vw-2rem),800px)] pl-5'>
-									<ServiceCard {...service} />
+									<CalendlyButton>
+										<ServiceCard {...service} />
+									</CalendlyButton>
 								</div>
 							))}
 						</CarouselContainer>

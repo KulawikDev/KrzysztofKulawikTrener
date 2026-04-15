@@ -17,7 +17,7 @@ export const siteConfig = {
   metadata: {
     default: {
       title: 'Trener personalny | Krzysztof Kulawik',
-      description: '',
+      description: 'Profesjonalny trener personalny z Chrzanowa. Oferuję spersonalizowane treningi, które pomogą Ci osiągnąć swoje cele fitness. Skontaktuj się ze mną już dziś i zacznij swoją transformację!',
     },
   },
   socials: {

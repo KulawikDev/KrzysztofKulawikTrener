@@ -7,7 +7,6 @@ export type NavigationLink = {
 	label: string
 	href: string
 	external?: boolean
-	Icon?: LucideIcon
 }
 
 export const FOOTER_LINKS: {
@@ -68,18 +67,15 @@ export const FOOTER_LINKS: {
 
 export const NAVBAR_LINKS: NavigationLink[] = [
 	{
-		label: 'Contact',
-		href: '/contact',
-		Icon: TruckIcon
+		label: 'Oferta',
+		href: '/#oferta'
 	},
 	{
-		label: 'About us',
-		href: '/about-us',
-		Icon: BookOpenIcon
+		label: 'Opinie',
+		href: '/#opinie'
 	},
 	{
 		label: 'Blog',
-		href: '/blog',
-		Icon: FileTextIcon
+		href: '/blog'
 	}
 ]
