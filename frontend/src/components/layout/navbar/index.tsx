@@ -5,10 +5,9 @@ import { NAVBAR_LINKS } from '@/config/links'
 import { cn } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
 import { MenuIcon, XIcon } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import Wordmark from '~/public/assets/wordmark.png'
+import Wordmark from '~/public/assets/wordmark.svg'
 import { NavPanel } from './nav-panel'
 
 const iconVariants = {
@@ -35,7 +34,7 @@ const Navbar = () => {
 					)}>
 					<nav className='relative flex h-20 items-center justify-between py-4'>
 						<Link href='/' className='not-link pointer-events-auto z-50 w-max'>
-							<Image src={Wordmark} alt='Logo Krzysztof Kulawik' className='h-14 w-auto' />
+							<Wordmark className='h-14 w-auto' />
 							<span className='sr-only'>Strona główna</span>
 						</Link>
 
