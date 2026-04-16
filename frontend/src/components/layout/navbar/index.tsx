@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { RippleButton } from '@/components/ui/button-effects'
 import { NAVBAR_LINKS } from '@/config/links'
 import { cn } from '@/lib/utils'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -38,7 +38,7 @@ const Navbar = () => {
 							<span className='sr-only'>Strona główna</span>
 						</Link>
 
-						<Button
+						<RippleButton
 							size='icon'
 							className='pointer-events-auto relative size-12 overflow-hidden rounded-full'
 							onClick={() => setIsMenuOpen(v => !v)}
@@ -67,7 +67,7 @@ const Navbar = () => {
 									</motion.span>
 								)}
 							</AnimatePresence>
-						</Button>
+						</RippleButton>
 					</nav>
 				</div>
 			</header>

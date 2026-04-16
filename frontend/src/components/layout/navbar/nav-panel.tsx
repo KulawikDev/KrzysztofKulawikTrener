@@ -1,7 +1,7 @@
 'use client'
 
 import { CalendlyButton } from '@/components/calendly/calendly-button'
-import { Button } from '@/components/ui/button'
+import { RippleButton } from '@/components/ui/button-effects'
 import { NavigationLink } from '@/config/links'
 import { siteConfig } from '@/config/site'
 import { useScrollLock } from '@/hooks/use-scroll-block'
@@ -158,7 +158,7 @@ export function NavPanel({ isOpen, onClose, links }: NavPanelProps) {
 
 								{/* CTA button */}
 								<CalendlyButton>
-									<Button className='w-full lg:w-auto'>Umów darmową rozmowę</Button>
+									<RippleButton className='w-full lg:w-auto'>Umów darmową rozmowę</RippleButton>
 								</CalendlyButton>
 							</motion.div>
 						</div>

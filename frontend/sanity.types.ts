@@ -74,7 +74,7 @@ export type Transformation = {
 	_rev: string
 	name: string
 	age: number
-	durationMonths: number
+	durationMonths?: number
 	imageBefore: {
 		asset?: SanityImageAssetReference
 		media?: unknown
@@ -199,14 +199,25 @@ export type Slug = {
 	source?: string
 }
 
-export type Faq = {
+export type Post = {
 	_id: string
-	_type: 'faq'
+	_type: 'post'
 	_createdAt: string
 	_updatedAt: string
 	_rev: string
-	question: string
-	answer: string
+	title: string
+	slug: Slug
+	content?: BlockContent
+	excerpt?: string
+	coverImage: {
+		asset?: SanityImageAssetReference
+		media?: unknown
+		hotspot?: SanityImageHotspot
+		crop?: SanityImageCrop
+		alt?: string
+		_type: 'image'
+	}
+	date?: string
 }
 
 export type SanityFileAssetReference = {
@@ -283,66 +294,6 @@ export type About = {
 		label: string
 		_key: string
 	}>
-}
-
-export type Settings = {
-	_id: string
-	_type: 'settings'
-	_createdAt: string
-	_updatedAt: string
-	_rev: string
-	title: string
-	description?: Array<{
-		children?: Array<{
-			marks?: Array<string>
-			text?: string
-			_type: 'span'
-			_key: string
-		}>
-		style?: 'normal'
-		listItem?: never
-		markDefs?: Array<{
-			linkType?: 'href' | 'post'
-			href?: string
-			post?: PostReference
-			openInNewTab?: boolean
-			_type: 'link'
-			_key: string
-		}>
-		level?: number
-		_type: 'block'
-		_key: string
-	}>
-	ogImage?: {
-		asset?: SanityImageAssetReference
-		media?: unknown
-		hotspot?: SanityImageHotspot
-		crop?: SanityImageCrop
-		alt?: string
-		metadataBase?: string
-		_type: 'image'
-	}
-}
-
-export type Post = {
-	_id: string
-	_type: 'post'
-	_createdAt: string
-	_updatedAt: string
-	_rev: string
-	title: string
-	slug: Slug
-	content?: BlockContent
-	excerpt?: string
-	coverImage: {
-		asset?: SanityImageAssetReference
-		media?: unknown
-		hotspot?: SanityImageHotspot
-		crop?: SanityImageCrop
-		alt?: string
-		_type: 'image'
-	}
-	date?: string
 }
 
 export type SanityAssistInstructionTask = {
@@ -593,12 +544,10 @@ export type AllSanitySchemaTypes =
 	| LucideIcon
 	| LegalPage
 	| Slug
-	| Faq
+	| Post
 	| SanityFileAssetReference
 	| Gallery
 	| About
-	| Settings
-	| Post
 	| SanityAssistInstructionTask
 	| SanityAssistTaskStatus
 	| SanityAssistSchemaTypeAnnotations
@@ -624,44 +573,7 @@ export type AllSanitySchemaTypes =
 // Source: src/sanity/lib/queries.ts
 // Variable: settingsQuery
 // Query: *[_type == "settings"][0]
-export type SettingsQueryResult = {
-	_id: string
-	_type: 'settings'
-	_createdAt: string
-	_updatedAt: string
-	_rev: string
-	title: string
-	description?: Array<{
-		children?: Array<{
-			marks?: Array<string>
-			text?: string
-			_type: 'span'
-			_key: string
-		}>
-		style?: 'normal'
-		listItem?: never
-		markDefs?: Array<{
-			linkType?: 'href' | 'post'
-			href?: string
-			post?: PostReference
-			openInNewTab?: boolean
-			_type: 'link'
-			_key: string
-		}>
-		level?: number
-		_type: 'block'
-		_key: string
-	}>
-	ogImage?: {
-		asset?: SanityImageAssetReference
-		media?: unknown
-		hotspot?: SanityImageHotspot
-		crop?: SanityImageCrop
-		alt?: string
-		metadataBase?: string
-		_type: 'image'
-	}
-} | null
+export type SettingsQueryResult = null
 
 // Source: src/sanity/lib/queries.ts
 // Variable: sitemapData
@@ -771,10 +683,7 @@ export type PostPagesSlugsResult = Array<{
 // Source: src/sanity/lib/queries.ts
 // Variable: faqQuery
 // Query: *[_type == "faq"] | order(orderRank) {    question,    answer  }
-export type FaqQueryResult = Array<{
-	question: string
-	answer: string
-}>
+export type FaqQueryResult = Array<never>
 
 // Source: src/sanity/lib/queries.ts
 // Variable: servicesQuery
@@ -802,7 +711,7 @@ export type TransformationsQueryResult = Array<{
 	_id: string
 	name: string
 	age: number
-	durationMonths: number
+	durationMonths: number | null
 	imageBefore: {
 		asset?: SanityImageAssetReference
 		media?: unknown

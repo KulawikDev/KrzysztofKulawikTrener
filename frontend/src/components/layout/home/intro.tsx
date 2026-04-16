@@ -1,5 +1,5 @@
 import { CalendlyButton } from '@/components/calendly/calendly-button'
-import { Button } from '@/components/ui/button'
+import { RippleButton } from '@/components/ui/button-effects'
 
 export function Intro() {
 	return (
@@ -9,7 +9,7 @@ export function Intro() {
 				sprawność i trwałe rezultaty poprzez trening personalny dopasowany do celu, poziomu i stylu życia.
 			</p>
 			<CalendlyButton>
-				<Button>Umów darmową rozmowę</Button>
+				<RippleButton>Umów darmową rozmowę</RippleButton>
 			</CalendlyButton>
 		</section>
 	)

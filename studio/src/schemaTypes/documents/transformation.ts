@@ -25,7 +25,6 @@ export const transformation = defineType({
       title: "Czas trwania (miesiące)",
       description: "Ile miesięcy trwała transformacja",
       type: "number",
-      validation: (rule) => rule.required().positive().integer(),
     }),
     defineField({
       name: "imageBefore",

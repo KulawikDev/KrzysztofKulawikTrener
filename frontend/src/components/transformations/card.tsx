@@ -16,11 +16,13 @@ export function TransformationCard({
 }: TransformationCardProps & { className?: string }) {
 	const beforeImageUrl = urlForImage(imageBefore)?.width(470).height(580).fit('crop').url()
 	const afterImageUrl = urlForImage(imageAfter)?.width(454).height(580).fit('crop').url()
+	const hasDuration = durationMonths !== null && durationMonths !== undefined
+	const hasStats = Array.isArray(stats) && stats.length > 0
 
 	return (
 		<div
 			className={cn(
-				'relative grid grid-cols-1 gap-3 overflow-hidden rounded-4xl p-3 shadow-[0px_4px_0px_0px_#252525]',
+				'relative grid grid-cols-1 gap-3 overflow-hidden rounded-4xl border-4 border-primary/10 p-3 shadow-[0px_-6px_12px_#00000015] backdrop-blur-lg',
 				'md:grid-cols-2',
 				'lg:grid-cols-[auto_1fr_auto] lg:items-center lg:gap-0',
 				className
@@ -96,53 +98,62 @@ export function TransformationCard({
 
 				{/* Stats */}
 				<div className='flex flex-col gap-6'>
-					<div className='flex items-start gap-4 sm:gap-6 md:gap-8'>
-						{/* Duration + stat labels column */}
-						<div className='flex flex-col gap-2.5'>
-							<span className='font-heading text-xl leading-[1.15] whitespace-nowrap text-secondary-foreground uppercase'>
-								{durationMonths} {polishPlural('miesiąc', 'miesiące', 'miesięcy', durationMonths)}
-							</span>
-							{stats?.map(stat => (
-								<span
-									key={stat._key}
-									className='font-body text-sm leading-[1.15] whitespace-nowrap text-secondary-foreground'>
-									{stat.label}
-								</span>
-							))}
+					{(hasDuration || hasStats) && (
+						<div className='flex items-start gap-4 sm:gap-6 md:gap-8'>
+							{/* Duration + stat labels column */}
+							<div className='flex flex-col gap-2.5'>
+								{hasDuration && (
+									<span className='font-heading text-xl leading-[1.15] whitespace-nowrap text-secondary-foreground uppercase'>
+										{durationMonths} {polishPlural('miesiąc', 'miesiące', 'miesięcy', durationMonths)}
+									</span>
+								)}
+								{hasStats &&
+									stats.map(stat => (
+										<span
+											key={stat._key}
+											className='font-body text-sm leading-[1.15] whitespace-nowrap text-secondary-foreground'>
+											{stat.label}
+										</span>
+									))}
+							</div>
+
+							{hasStats && (
+								<>
+									<div className='w-px self-stretch bg-white/10' />
+
+									{/* Before values column */}
+									<div className='flex flex-col gap-2.5'>
+										<span className='font-heading text-xl leading-[1.15] whitespace-nowrap text-secondary-foreground uppercase'>
+											Przed
+										</span>
+										{stats.map(stat => (
+											<span
+												key={stat._key}
+												className='font-body text-sm leading-[1.15] whitespace-nowrap text-secondary-foreground'>
+												{stat.before}
+											</span>
+										))}
+									</div>
+
+									<div className='w-px self-stretch bg-white/10' />
+
+									{/* After values column */}
+									<div className='flex flex-col gap-2.5'>
+										<span className='font-heading text-xl leading-[1.15] whitespace-nowrap text-secondary-foreground uppercase'>
+											Po
+										</span>
+										{stats.map(stat => (
+											<span
+												key={stat._key}
+												className='font-body text-sm leading-[1.15] whitespace-nowrap text-secondary-foreground'>
+												{stat.after}
+											</span>
+										))}
+									</div>
+								</>
+							)}
 						</div>
-
-						<div className='w-px self-stretch bg-white/10' />
-
-						{/* Before values column */}
-						<div className='flex flex-col gap-2.5'>
-							<span className='font-heading text-xl leading-[1.15] whitespace-nowrap text-secondary-foreground uppercase'>
-								Przed
-							</span>
-							{stats?.map(stat => (
-								<span
-									key={stat._key}
-									className='font-body text-sm leading-[1.15] whitespace-nowrap text-secondary-foreground'>
-									{stat.before}
-								</span>
-							))}
-						</div>
-
-						<div className='w-px self-stretch bg-white/10' />
-
-						{/* After values column */}
-						<div className='flex flex-col gap-2.5'>
-							<span className='font-heading text-xl leading-[1.15] whitespace-nowrap text-secondary-foreground uppercase'>
-								Po
-							</span>
-							{stats?.map(stat => (
-								<span
-									key={stat._key}
-									className='font-body text-sm leading-[1.15] whitespace-nowrap text-secondary-foreground'>
-									{stat.after}
-								</span>
-							))}
-						</div>
-					</div>
+					)}
 
 					{description && description.length > 0 && (
 						<CustomPortableText

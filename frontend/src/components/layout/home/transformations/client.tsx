@@ -22,7 +22,7 @@ function AnimatedCard({ scrollYProgress, index, total, rotation, data }: Animate
 	const slotStart = index / total
 	const animEnd = slotStart + (1 / total) * 0.6
 
-	const y = useTransform(scrollYProgress, [slotStart, animEnd], ['100vh', '-10vh'])
+	const y = useTransform(scrollYProgress, [slotStart, animEnd], ['100vh', '-20vh'])
 	const springY = useSpring(y, { stiffness: 50, damping: 20 })
 
 	return (

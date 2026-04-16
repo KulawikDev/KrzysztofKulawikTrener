@@ -1,10 +1,10 @@
 import { CalendlyButton } from '@/components/calendly/calendly-button'
-import { Button } from '@/components/ui/button'
+import { RippleButton } from '@/components/ui/button-effects'
 import Image from 'next/image'
+import Link from 'next/link'
+import HADAStudiosLogo from '~/public/assets/hadastudios.png'
 import FooterImage from '~/public/images/process/cel.webp'
 import { FooterContact } from './contact'
-import HADAStudiosLogo from '~/public/assets/hadastudios.png'
-import Link from 'next/link'
 
 type Props = {}
 
@@ -29,11 +29,12 @@ export const Footer = (props: Props) => {
 
 				<div className='space-y-3'>
 					<CalendlyButton>
-						<Button
+						<RippleButton
+							scaleUpSize={1.02}
 							variant={'default'}
 							className='h-auto w-full rounded-3xl bg-transparent py-8 text-3xl leading-none text-primary mix-blend-difference outline-4 outline-primary hover:bg-gradient-primary hover:text-primary-foreground sm:rounded-4xl sm:py-10 sm:text-4xl md:rounded-[3rem] md:py-12 md:text-5xl lg:text-6xl'>
 							Umów darmową rozmowę
-						</Button>
+						</RippleButton>
 					</CalendlyButton>
 					<p className='w-full text-center text-sm text-balance sm:text-base sm:leading-none'>
 						Bez zobowiązań. Sprawdzimy, czy to dobry kierunek dla Ciebie.

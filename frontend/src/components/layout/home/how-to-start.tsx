@@ -1,5 +1,5 @@
 import { CalendlyButton } from '@/components/calendly/calendly-button'
-import { Button } from '@/components/ui/button'
+import { RippleButton } from '@/components/ui/button-effects'
 import { Marquee, MarqueeContent, MarqueeItem } from '@/components/ui/marquee'
 import { cn } from '@/lib/utils'
 import SparkSvg from '~/public/assets/spark.svg'
@@ -63,7 +63,7 @@ export const HowToStart = (props: Props) => {
 
 						{index === STEPS.length - 1 && (
 							<CalendlyButton>
-								<Button className='rounded-b-3xl sm:ml-auto sm:rounded-br-4xl'>Umów darmową rozmowę</Button>
+								<RippleButton className='rounded-b-3xl sm:ml-auto sm:rounded-br-4xl'>Umów darmową rozmowę</RippleButton>
 							</CalendlyButton>
 						)}
 					</li>

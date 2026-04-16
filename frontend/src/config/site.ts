@@ -16,7 +16,7 @@ export const siteConfig = {
   domain: 'https://krzysztofkulawik.pl',
   metadata: {
     default: {
-      title: 'Trener personalny | Krzysztof Kulawik',
+      title: 'Trener personalny Chrzanów | Krzysztof Kulawik',
       description: 'Profesjonalny trener personalny z Chrzanowa. Oferuję spersonalizowane treningi, które pomogą Ci osiągnąć swoje cele fitness. Skontaktuj się ze mną już dziś i zacznij swoją transformację!',
     },
   },

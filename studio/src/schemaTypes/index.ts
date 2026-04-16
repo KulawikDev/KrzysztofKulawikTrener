@@ -15,7 +15,7 @@ import { settings } from './singletons/settings'
 
 export const schemaTypes = [
   // Singletons
-  settings,
+  // settings,
   about,
   gallery,
   // Documents

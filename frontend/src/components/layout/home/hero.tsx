@@ -42,6 +42,8 @@ export function Hero() {
 						alt=''
 						draggable={false}
 						width={500}
+						fetchPriority='high'
+						loading='eager'
 						className='pointer-events-none h-full w-auto object-cover opacity-10 md:block'
 						aria-hidden='true'
 					/>

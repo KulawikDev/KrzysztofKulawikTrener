@@ -1,5 +1,5 @@
 import {
-  CogIcon, ImagesIcon, UserIcon,
+  ImagesIcon, UserIcon
 } from '@sanity/icons'
 import { orderableDocumentListDeskItem } from '@sanity/orderable-document-list'
 import { BicepsFlexedIcon, StarIcon } from 'lucide-react'
@@ -27,7 +27,7 @@ const GROUPED_TYPES: {
       { name: 'testimonial', label: 'Opinie', orderable: true, icon: StarIcon },
     ],
     [
-      { name: 'settings', label: 'Ustawienia strony', singleton: true, icon: CogIcon },
+      // { name: 'settings', label: 'Ustawienia strony', singleton: true, icon: CogIcon },
       { name: 'about', label: 'Sekcja "O mnie"', singleton: true, icon: UserIcon },
       { name: 'gallery', label: 'Galeria', singleton: true, icon: ImagesIcon },
     ],
