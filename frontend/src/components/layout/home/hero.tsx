@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import HeroPerson from '~/public/images/hero/hero-person.webp'
+import HeroPerson from '~/public/images/hero/hero-person-2.png'
 import NamePatternImg from '~/public/images/decoration/name-pattern-vertical.webp'
 import HeroImage from '~/public/images/hero/hero-image.webp'
 

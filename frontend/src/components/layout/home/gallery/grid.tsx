@@ -3,7 +3,7 @@
 import { Lightbox, LightboxTrigger, type LightboxItem } from '@/components/lightbox'
 import { PlayIcon } from 'lucide-react'
 import Image from 'next/image'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -32,6 +32,24 @@ export type GalleryVideoItem = {
 
 export type GalleryItem = GalleryImageItem | GalleryVideoItem
 
+// ── VideoSlide ────────────────────────────────────────────────────────────────
+
+function VideoSlide({ src, poster }: { src: string; poster?: string }) {
+	const ref = useRef<HTMLVideoElement>(null)
+	useEffect(() => () => { ref.current?.pause() }, [])
+	return (
+		<video
+			ref={ref}
+			src={src}
+			controls
+			playsInline
+			poster={poster}
+			muted
+			className='size-full object-contain'
+		/>
+	)
+}
+
 // ── Grid ──────────────────────────────────────────────────────────────────────
 
 export function GalleryGrid({ items }: { items: GalleryItem[] }) {
@@ -47,18 +65,8 @@ export function GalleryGrid({ items }: { items: GalleryItem[] }) {
 						label: item.caption
 					}
 				}
-				// video — `key` on the video element ensures it resets on slide change
 				return {
-					content: (
-						<video
-							key={item._key}
-							src={item.videoUrl}
-							controls
-							playsInline
-							poster={item.posterSrc ?? undefined}
-							className='size-full object-contain'
-						/>
-					),
+					content: <VideoSlide src={item.videoUrl} poster={item.posterSrc ?? undefined} />,
 					thumbnail: item.posterSrc ? (
 						// eslint-disable-next-line @next/next/no-img-element
 						<img src={item.posterSrc} alt={item.caption ?? 'Video'} className='size-full object-cover' />

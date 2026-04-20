@@ -33,7 +33,7 @@ const Navbar = () => {
 						!isMenuOpen && '[body:has([data-reverse-nav])_&]:text-background'
 					)}>
 					<nav className='relative flex h-20 items-center justify-between py-4'>
-						<Link href='/' className='not-link pointer-events-auto z-50 w-max'>
+						<Link href='/' className='not-link pointer-events-auto z-50 w-max active-scale'>
 							<Wordmark className='h-14 w-auto' />
 							<span className='sr-only'>Strona główna</span>
 						</Link>
