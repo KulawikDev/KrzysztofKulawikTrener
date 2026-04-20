@@ -14,7 +14,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata, Viewport } from 'next'
 import { VisualEditing } from 'next-sanity/visual-editing'
-import { Bebas_Neue, Inter, Libre_Baskerville, Poppins } from 'next/font/google'
+import { Bebas_Neue, Libre_Baskerville } from 'next/font/google'
 import { draftMode } from 'next/headers'
 import { Suspense } from 'react'
 import { Toaster } from 'sonner'
@@ -41,14 +41,14 @@ export async function generateMetadata({}: {}): Promise<Metadata> {
 		description: description,
 		keywords: [],
 		openGraph: {
-			title: `${title} | ${name}`,
+			title: `${title}`,
 			description: description,
 			url: BASE_URL,
 			type: 'website',
 			locale: 'pl'
 		},
 		twitter: {
-			title: `${title} | ${name}`,
+			title: `${title}`,
 			description: description,
 			card: 'summary_large_image',
 			images: [`${BASE_URL}/opengraph-image.png`]

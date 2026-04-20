@@ -19,7 +19,7 @@ const CARDS: Card[] = [
 				<strong className='font-bold'>trudno zdecydować, co tak naprawdę ma sens.</strong>
 			</>
 		),
-		image: '/images/shapes/icon-1.webp'
+		image: '/images/shapes/icon-4.webp'
 	},
 	{
 		title: 'Trenujesz, ale nie widzisz efektów',
@@ -30,7 +30,7 @@ const CARDS: Card[] = [
 				robię coś źle?
 			</>
 		),
-		image: '/images/shapes/icon-4.webp'
+		image: '/images/shapes/icon-1.webp'
 	},
 	{
 		title: 'Czujesz, że stoisz w miejscu',
@@ -58,6 +58,7 @@ function PainCard({ title, body, className, image }: Card) {
 					width={96}
 					height={96}
 					draggable={false}
+					quality={100}
 				/>
 			</div>
 
