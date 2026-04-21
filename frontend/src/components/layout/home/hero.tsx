@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import HeroPerson from '~/public/images/hero/hero-person-2.png'
+import HeroPerson from '~/public/images/hero/hero-person.webp'
 import NamePatternImg from '~/public/images/decoration/name-pattern-vertical.webp'
 import HeroImage from '~/public/images/hero/hero-image.webp'
 
@@ -51,7 +51,7 @@ export function Hero() {
 				{/* Person image */}
 				<div
 					aria-hidden='true'
-					className='pointer-events-none absolute right-0 bottom-0 z-20 block h-full max-h-105 w-auto sm:max-h-135 lg:max-h-195'>
+					className='pointer-events-none absolute -right-6 bottom-0 z-20 block h-full max-h-105 w-auto sm:max-h-135 lg:max-h-195'>
 					<Image
 						src={HeroPerson}
 						alt='Zdjęcie trenera personalnego Krzysztofa Kulawika'
@@ -70,7 +70,7 @@ export function Hero() {
 			{/* Bottom gradient for headline readability */}
 			<div
 				aria-hidden='true'
-				className='pointer-events-none absolute inset-x-0 bottom-0 z-25 h-64 bg-linear-to-t from-black/75 to-transparent lg:hidden'
+				className='pointer-events-none absolute inset-x-0 bottom-0 z-25 container-fill h-64 bg-linear-to-t from-black/75 to-transparent lg:hidden'
 			/>
 			{/* Grain texture */}
 			<div

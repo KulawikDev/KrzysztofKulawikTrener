@@ -19,7 +19,7 @@ const CARDS: Card[] = [
 				<strong className='font-bold'>trudno zdecydować, co tak naprawdę ma sens.</strong>
 			</>
 		),
-		image: '/images/shapes/icon-4.webp'
+		image: '/images/shapes/icon-1.webp'
 	},
 	{
 		title: 'Trenujesz, ale nie widzisz efektów',
@@ -30,7 +30,7 @@ const CARDS: Card[] = [
 				robię coś źle?
 			</>
 		),
-		image: '/images/shapes/icon-1.webp'
+		image: '/images/shapes/icon-2.webp'
 	},
 	{
 		title: 'Czujesz, że stoisz w miejscu',
@@ -40,7 +40,7 @@ const CARDS: Card[] = [
 	{
 		title: 'Brakuje ci struktury',
 		body: 'Jeden tydzień trenujesz regularnie, potem wszystko się rozsypuje. Plan z internetu przestaje działać, a motywacja spada.',
-		image: '/images/shapes/icon-2.webp'
+		image: '/images/shapes/icon-4.webp'
 	}
 ]
 
@@ -55,8 +55,8 @@ function PainCard({ title, body, className, image }: Card) {
 					src={image}
 					alt=''
 					className='size-24 object-contain select-none'
-					width={96}
-					height={96}
+					width={160}
+					height={160}
 					draggable={false}
 					quality={100}
 				/>
