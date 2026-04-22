@@ -4,8 +4,8 @@ export const siteConfig = {
   name: 'Krzysztof Kulawik',
   email: 'krzys.kulawik@gmail.com',
   phone: '+48 668 485 081',
-  legalName: '',
-  nip: '',
+  legalName: undefined,
+  nip: undefined,
   address: {
     country: 'PL',
     city: 'Chrzanów',
@@ -17,7 +17,7 @@ export const siteConfig = {
   metadata: {
     default: {
       title: 'Trener personalny Chrzanów | Krzysztof Kulawik',
-      description: 'Profesjonalny trener personalny z Chrzanowa. Oferuję spersonalizowane treningi, które pomogą Ci osiągnąć swoje cele fitness. Skontaktuj się ze mną już dziś i zacznij swoją transformację!',
+      description: 'Trener personalny z Chrzanowa. Oferuję spersonalizowane treningi, które pomogą Ci osiągnąć swoje cele fitness. Zacznij swoją transformację już dziś!',
     },
   },
   socials: {

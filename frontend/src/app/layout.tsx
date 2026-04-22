@@ -7,7 +7,7 @@ import { Providers } from '@/components/layout/providers'
 import { StructuredData } from '@/components/structured-data'
 import { siteConfig } from '@/config/site'
 import { BASE_URL } from '@/lib/base-url'
-import { OrganisationSchema, WebsiteSchema } from '@/lib/structuredData'
+import { LocalBusinessSchema, OrganisationSchema, PersonSchema, WebsiteSchema } from '@/lib/structuredData'
 import { SanityLive } from '@/sanity/lib/live'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import { Analytics } from '@vercel/analytics/next'
@@ -39,7 +39,13 @@ export async function generateMetadata({}: {}): Promise<Metadata> {
 		},
 		metadataBase: new URL(BASE_URL),
 		description: description,
-		keywords: [],
+		keywords: [
+			'trener personalny Chrzanów',
+			'trener personalny małopolska',
+			'treningi personalne Chrzanów',
+			'odchudzanie Chrzanów',
+			'dieta i trening Chrzanów'
+		],
 		openGraph: {
 			title: `${title}`,
 			description: description,
@@ -52,6 +58,9 @@ export async function generateMetadata({}: {}): Promise<Metadata> {
 			description: description,
 			card: 'summary_large_image',
 			images: [`${BASE_URL}/opengraph-image.png`]
+		},
+		alternates: {
+			canonical: BASE_URL
 		}
 	}
 }
@@ -118,6 +127,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 				<StructuredData data={WebsiteSchema()} />
 				<StructuredData data={OrganisationSchema()} />
+				<StructuredData data={LocalBusinessSchema()} />
+				<StructuredData data={PersonSchema()} />
 			</body>
 		</html>
 	)

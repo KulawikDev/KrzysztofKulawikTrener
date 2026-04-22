@@ -1,5 +1,7 @@
 import { CarouselContainer, CarouselProvider, CarouselViewport } from '@/components/carousel/carousel'
 import { CalendlyButton } from '@/components/calendly/calendly-button'
+import { StructuredData } from '@/components/structured-data'
+import { generateServicesSchema } from '@/lib/structuredData'
 import { sanityFetch } from '@/sanity/lib/live'
 import { servicesQuery } from '@/sanity/lib/queries'
 import { ServiceCard } from './card'
@@ -12,6 +14,7 @@ export async function Services() {
 
 	return (
 		<section id='oferta' className='relative grid-container container-fill section-padding scroll-m-8'>
+			<StructuredData data={generateServicesSchema(data)} />
 			<div
 				aria-hidden='true'
 				className='pointer-events-none absolute inset-0 flex items-center justify-center select-none'>

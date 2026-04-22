@@ -7,7 +7,7 @@ type Sitemap = MetadataRoute.Sitemap
 
 const _ROUTES: Pick<Sitemap[number], 'url' | 'changeFrequency' | 'priority'>[] = [
 	{ url: '', priority: 1, changeFrequency: 'monthly' },
-	{ url: '/blog', priority: 0.1, changeFrequency: 'monthly' }
+	{ url: '/blog', priority: 0.1, changeFrequency: 'weekly' }
 ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -39,8 +39,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 					url = `${BASE_URL}/legal/${p.slug}`
 					break
 				case 'post':
-					priority = 0.5
-					changeFrequency = 'never'
+					priority = 0.7
+					changeFrequency = 'monthly'
 					url = `${BASE_URL}/blog/${p.slug}`
 					break
 				default:
