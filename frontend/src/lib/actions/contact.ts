@@ -1,9 +1,14 @@
 'use server'
 
+import { ContactConfirmationEmail } from '@/components/emails/contact-confirmation'
+import { ContactNotificationEmail } from '@/components/emails/contact-notification'
 import { siteConfig } from '@/config/site'
+import { render } from '@react-email/render'
 import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
+
+const FROM_ADDRESS = 'Krzysztof Kulawik <email@krzysztofkulawik.pl>'
 
 export type ContactFormState = {
 	success: boolean
@@ -11,8 +16,8 @@ export type ContactFormState = {
 }
 
 type ContactPayload = {
-	name?: string        // honeypot
-	naekjsdvbgs: string  // real name
+	name?: string       // honeypot
+	naekjsdvbgs: string // real name
 	email: string
 	phone?: string
 	message: string
@@ -23,26 +28,43 @@ export async function sendContactEmail(payload: ContactPayload): Promise<Contact
 
 	const name = payload.naekjsdvbgs?.trim()
 	const email = payload.email?.trim()
-	const phone = payload.phone?.trim()
+	const phone = payload.phone?.trim() || undefined
 	const message = payload.message?.trim()
 
 	if (!name || name.length < 2) return { success: false, errorKey: 'invalid_name' }
 	if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return { success: false, errorKey: 'invalid_email' }
 	if (!message) return { success: false, errorKey: 'invalid_message' }
 
-	const phoneLine = phone ? `\nTelefon: ${phone}` : ''
+	const [notificationHtml, confirmationHtml] = await Promise.all([
+		render(ContactNotificationEmail({ name, email, message, phone })),
+		render(ContactConfirmationEmail({ name, message })),
+	])
 
 	try {
-		await resend.emails.send({
-			from: 'onboarding@resend.dev',
+		const res = await resend.emails.send({
+			from: FROM_ADDRESS,
 			to: siteConfig.email,
 			replyTo: email,
-			subject: `Nowa wiadomość od ${name}`,
-			text: `Imię i nazwisko: ${name}\nEmail: ${email}${phoneLine}\n\nWiadomość:\n${message}`
+			subject: `Nowe zapytanie - ${name}`,
+			html: notificationHtml,
 		})
-		return { success: true }
+
+		console.log('[Resend] Email sent successfully:', res)
 	} catch (error) {
-		console.error('[Resend] Error sending email:', error)
+		console.error('[Resend] Failed to send notification email:', error)
 		return { success: false, errorKey: 'send_error' }
 	}
+
+	// Confirmation to client is best-effort - don't fail the form if it errors
+	resend.emails.send({
+		from: FROM_ADDRESS,
+		to: email,
+		subject: 'Dziękuję za wiadomość!',
+		html: confirmationHtml,
+	}).then((res) => {
+		console.log('[Resend] Confirmation email send initiated:', res)
+	}).catch(err => console.error('[Resend] Failed to send confirmation email:', err))
+
+
+	return { success: true }
 }
