@@ -6,7 +6,6 @@ import {
 	Head,
 	Hr,
 	Html,
-	Img,
 	Preview,
 	Row,
 	Section,
@@ -14,7 +13,7 @@ import {
 	Text
 } from '@react-email/components'
 import { emailConfig } from './email-theme'
-import { BASE_URL } from '@/lib/base-url'
+import { EmailHeader } from './email-header'
 import { siteConfig } from '@/config/site'
 
 const CALENDLY_URL = 'https://calendly.com/trener-krzysztof-kulawik/konsultacja'
@@ -30,45 +29,20 @@ export const ContactConfirmationEmail = ({ name, message }: Props) => (
 			<Head />
 			<Preview>Otrzymaliśmy Twoją wiadomość, {name}. Odezwiemy się wkrótce.</Preview>
 			<Body className='bg-em-bg m-0 p-0 font-sans'>
-				{/* ── Header ── */}
-				<Section
-					className='border-b-2 border-[#FFC902] text-center'
-					style={{
-						backgroundColor: '#191919',
-						backgroundImage: `url(https://krzysztofkulawik.pl/images/pattern.png)`,
-						backgroundRepeat: 'repeat'
-					}}>
-					<Row>
-						<Column className='px-10 pt-12 pb-10'>
-							<Img
-								src={`${BASE_URL}/assets/wordmark-white.png`}
-								alt='Krzysztof Kulawik'
-								width={148}
-								height={62}
-								className='mx-auto mb-7 block'
-							/>
-							<Text className='m-0 mb-5 text-[10px] tracking-[3px] text-[#555555] uppercase'>
-								Trener Personalny · Chrzanów
-							</Text>
-							<Text className='m-0 text-[38px] leading-[1.1] font-black tracking-[-1px] text-[#FFC902]'>
-								Dziękujemy,{'\n'}
-								{name}!
-							</Text>
-							<Text className='m-0 mt-4 text-[14px] text-[#AAAAAA]'>
-								Twoja wiadomość dotarła - odezwiemy się wkrótce.
-							</Text>
-						</Column>
-					</Row>
-				</Section>
+				<EmailHeader
+					title={`Cześć \n${name}`}
+					subtitle='Twoja wiadomość dotarła, odezwę się wkrótce.'
+					titleColor='#FFC902'
+				/>
 
-				<Container className='mx-auto max-w-[600px] px-6 pb-14'>
+				<Container className='mx-auto max-w-150 px-6 pb-14'>
 					{/* ── Card ── */}
 					<Section className='bg-em-card border-em-border mt-7 rounded-xl border'>
 						<Row>
 							<Column className='px-9 pt-8 pb-8'>
-								{/* Body copy - use spans for inline highlights to avoid nested <p> */}
+								{/* Body copy - spans for inline colour without nested <p> */}
 								<Text className='m-0 text-[15px] leading-[1.8] text-[#C0C0C0]'>
-									Zazwyczaj odpowiadamy w ciągu <span style={{ color: '#FFC902', fontWeight: 700 }}>24 godzin</span>.{' '}
+									Zazwyczaj odpowiadam w ciągu <span style={{ color: '#FFC902', fontWeight: 700 }}>24 godzin</span>.{' '}
 									Jeśli sprawa jest pilna, zadzwoń bezpośrednio na numer{' '}
 									<span style={{ color: '#EBEBEB', fontWeight: 600 }}>{siteConfig.phone}</span>.
 								</Text>
@@ -93,7 +67,7 @@ export const ContactConfirmationEmail = ({ name, message }: Props) => (
 								<Section className='text-center'>
 									<Button
 										href={CALENDLY_URL}
-										className='bg-em-yellow inline-block rounded-md px-10 py-[14px] text-[12px] font-black tracking-[0.5px] text-black no-underline'>
+										className='bg-em-yellow inline-block rounded-md px-10 py-3.5 text-[12px] font-black tracking-[0.5px] text-black no-underline'>
 										Umów bezpłatną konsultację
 									</Button>
 									<Text className='m-0 mt-4 text-[12px] text-[#666666]'>
