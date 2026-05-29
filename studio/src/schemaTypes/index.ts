@@ -7,6 +7,7 @@ import { transformation } from './documents/transformation'
 import { blockContent } from './objects/blockContent'
 import { infoSection } from './objects/infoSection'
 import { link } from './objects/link'
+import { videoEmbed } from './objects/videoEmbed'
 import { about } from './singletons/about'
 import { gallery } from './singletons/gallery'
 import { settings } from './singletons/settings'
@@ -29,4 +30,5 @@ export const schemaTypes = [
   blockContent,
   link,
   infoSection,
+  videoEmbed,
 ]

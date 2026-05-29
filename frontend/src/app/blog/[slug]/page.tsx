@@ -1,9 +1,11 @@
-import { MorePosts } from '@/components/blog/posts'
+import { MorePosts, MorePostsSection } from '@/components/blog/posts'
+import { Lightbox, LightboxTrigger } from '@/components/lightbox'
 import PortableText from '@/components/portable-text'
 import { SanityImage } from '@/components/sanity-image'
 import { StructuredData } from '@/components/structured-data'
 import H1 from '@/components/ui/typography/h1'
 import H2 from '@/components/ui/typography/h2'
+import H3 from '@/components/ui/typography/h3'
 import { siteConfig } from '@/config/site'
 import { generateBlogPostStructuredData } from '@/lib/structuredData'
 import { cn } from '@/lib/utils'
@@ -60,6 +62,22 @@ export default async function PostPage(props: Props) {
 
 	const headings = getHeadingsFromPortableText(post.content)
 
+	const galleryItems =
+		post.gallery?.map((img: any) => ({
+			content: (
+				<SanityImage
+					image={img}
+					alt={(img as any).alt || ''}
+					sizes='(min-width: 1024px) 1200px, 100vw'
+					className='max-h-full max-w-full object-contain'
+				/>
+			),
+			thumbnail: (
+				<SanityImage image={img} alt={(img as any).alt || ''} sizes='64px' className='size-full object-cover' />
+			),
+			label: (img as any).caption ?? null
+		})) ?? []
+
 	return (
 		<div className='grid-container pt-20'>
 			<StructuredData data={generateBlogPostStructuredData(post)} />
@@ -69,12 +87,23 @@ export default async function PostPage(props: Props) {
 						<H1 className='max-w-full font-heading text-5xl leading-tight font-normal text-pretty uppercase transition-colors sm:text-6xl md:text-7xl lg:text-8xl'>
 							{post.title}
 						</H1>
+						{post.tags && post.tags.length > 0 && (
+							<div className='flex flex-wrap gap-2'>
+								{post.tags.map((tag: string) => (
+									<span key={tag} className='rounded-full border border-border/50 px-3 py-1 text-xs text-foreground/60'>
+										{tag}
+									</span>
+								))}
+							</div>
+						)}
 					</div>
 					<div className='aspect-4/3 overflow-hidden rounded-4xl border md:rounded-[3rem] lg:aspect-video'>
 						<SanityImage
 							image={post.coverImage}
 							alt={post.title}
 							sizes='100vw, (min-width: 1500px) 1600px'
+							width={1600}
+							height={900}
 							className='size-full object-cover'
 							loading='eager'
 							preload
@@ -103,15 +132,30 @@ export default async function PostPage(props: Props) {
 						</nav>
 					) : null}
 				</article>
+
+				{galleryItems.length > 0 && (
+					<section className='mx-auto mt-16 max-w-7xl'>
+						<H2 className='mb-8'>Galeria zdjęć</H2>
+						<Lightbox items={galleryItems}>
+							<div className='grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4'>
+								{post.gallery!.map((img: any, i: number) => (
+									<LightboxTrigger key={(img as any)._key ?? i} index={i} className='block'>
+										<div className='aspect-square overflow-hidden rounded-xl border border-border/30'>
+											<SanityImage
+												image={img}
+												alt={(img as any).alt || ''}
+												sizes='(min-width: 1024px) 300px, 50vw'
+												className='size-full object-cover transition-transform duration-300 hover:scale-105'
+											/>
+										</div>
+									</LightboxTrigger>
+								))}
+							</div>
+						</Lightbox>
+					</section>
+				)}
 			</main>
-			<aside className='mt-16 border-t'>
-				<div className='my-12 grid gap-8 lg:my-16'>
-					<H2>Polecamy również</H2>
-					<aside>
-						<Suspense>{await MorePosts({ skip: post._id, limit: 3 })}</Suspense>
-					</aside>
-				</div>
-			</aside>
+			<MorePostsSection limit={3} skip={post._id} />
 		</div>
 	)
 }

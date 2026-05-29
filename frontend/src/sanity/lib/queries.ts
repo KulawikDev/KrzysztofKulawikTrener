@@ -42,12 +42,27 @@ export const morePostsQuery = defineQuery(`
 export const postQuery = defineQuery(`
   *[_type == "post" && slug.current == $slug] [0] {
     content[]{
-    ...,
-    markDefs[]{
       ...,
-      ${linkReference}
-    }
-  },
+      markDefs[]{
+        ...,
+        ${linkReference}
+      }
+    },
+    gallery[]{
+      ...,
+    },
+    sections[]{
+      heading,
+      subheading,
+      content[]{
+        ...,
+        markDefs[]{
+          ...,
+          ${linkReference}
+        }
+      }
+    },
+    tags,
     ${postFields}
   }
 `)

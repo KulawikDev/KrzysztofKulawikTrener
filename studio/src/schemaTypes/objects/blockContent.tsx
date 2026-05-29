@@ -77,5 +77,25 @@ export const blockContent = defineType({
         ],
       },
     }),
+    defineArrayMember({
+      type: 'image',
+      options: {hotspot: true},
+      fields: [
+        defineField({
+          name: 'alt',
+          type: 'string',
+          title: 'Alternative text',
+          description: 'Important for SEO and accessibility.',
+        }),
+        defineField({
+          name: 'caption',
+          type: 'string',
+          title: 'Caption',
+        }),
+      ],
+    }),
+    defineArrayMember({
+      type: 'videoEmbed',
+    }),
   ],
 })

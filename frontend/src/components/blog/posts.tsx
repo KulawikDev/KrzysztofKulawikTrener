@@ -80,3 +80,27 @@ export const MorePosts = async ({ skip, limit, heading }: { skip: string; limit:
 		</PostsGrid>
 	)
 }
+
+export const MorePostsSection = async ({ skip, limit }: { skip: string; limit: number }) => {
+	const { data } = await sanityFetch({
+		query: morePostsQuery,
+		params: { skip, limit }
+	})
+
+	if (!data || data.length === 0) {
+		return null
+	}
+
+	return (
+		<aside className='mt-16 border-t'>
+			<div className='my-12 grid gap-8 lg:my-16'>
+				<H2>Zobacz także</H2>
+				<PostsGrid>
+					{data?.map((post: any, i) => (
+						<Post key={post._id} post={post} />
+					))}
+				</PostsGrid>
+			</div>
+		</aside>
+	)
+}

@@ -15,6 +15,12 @@
 export declare const internalGroqTypeReferenceTo: unique symbol
 
 // Source: ../schema.json
+export type VideoEmbed = {
+  _type: 'videoEmbed'
+  url: string
+  caption?: string
+}
+
 export type InfoSection = {
   _type: 'infoSection'
   heading?: string
@@ -37,34 +43,49 @@ export type Link = {
   openInNewTab?: boolean
 }
 
-export type BlockContent = Array<{
-  children?: Array<{
-    marks?: Array<string>
-    text?: string
-    _type: 'span'
-    _key: string
-  }>
-  style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-  listItem?: 'bullet' | 'number'
-  markDefs?: Array<{
-    linkType?: 'href' | 'post'
-    href?: string
-    post?: PostReference
-    openInNewTab?: boolean
-    _type: 'link'
-    _key: string
-  }>
-  level?: number
-  _type: 'block'
-  _key: string
-}>
-
 export type SanityImageAssetReference = {
   _ref: string
   _type: 'reference'
   _weak?: boolean
   [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
 }
+
+export type BlockContent = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }>
+      style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+      listItem?: 'bullet' | 'number'
+      markDefs?: Array<{
+        linkType?: 'href' | 'post'
+        href?: string
+        post?: PostReference
+        openInNewTab?: boolean
+        _type: 'link'
+        _key: string
+      }>
+      level?: number
+      _type: 'block'
+      _key: string
+    }
+  | {
+      asset?: SanityImageAssetReference
+      media?: unknown
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      alt?: string
+      caption?: string
+      _type: 'image'
+      _key: string
+    }
+  | ({
+      _key: string
+    } & VideoEmbed)
+>
 
 export type Transformation = {
   _id: string
@@ -74,7 +95,7 @@ export type Transformation = {
   _rev: string
   name: string
   age: number
-  durationMonths: number
+  durationMonths?: number
   imageBefore: {
     asset?: SanityImageAssetReference
     media?: unknown
@@ -199,6 +220,43 @@ export type Slug = {
   source?: string
 }
 
+export type Post = {
+  _id: string
+  _type: 'post'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title: string
+  slug: Slug
+  content?: BlockContent
+  excerpt?: string
+  coverImage: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+  date?: string
+  tags?: Array<string>
+  gallery?: Array<{
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    caption?: string
+    _type: 'image'
+    _key: string
+  }>
+  sections?: Array<
+    {
+      _key: string
+    } & InfoSection
+  >
+}
+
 export type SanityFileAssetReference = {
   _ref: string
   _type: 'reference'
@@ -273,66 +331,6 @@ export type About = {
     label: string
     _key: string
   }>
-}
-
-export type Settings = {
-  _id: string
-  _type: 'settings'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title: string
-  description?: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'normal'
-    listItem?: never
-    markDefs?: Array<{
-      linkType?: 'href' | 'post'
-      href?: string
-      post?: PostReference
-      openInNewTab?: boolean
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
-  ogImage?: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    metadataBase?: string
-    _type: 'image'
-  }
-}
-
-export type Post = {
-  _id: string
-  _type: 'post'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title: string
-  slug: Slug
-  content?: BlockContent
-  excerpt?: string
-  coverImage: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-  date?: string
 }
 
 export type SanityAssistInstructionTask = {
@@ -570,11 +568,12 @@ export type Geopoint = {
 }
 
 export type AllSanitySchemaTypes =
+  | VideoEmbed
   | InfoSection
   | PostReference
   | Link
-  | BlockContent
   | SanityImageAssetReference
+  | BlockContent
   | Transformation
   | SanityImageCrop
   | SanityImageHotspot
@@ -583,11 +582,10 @@ export type AllSanitySchemaTypes =
   | LucideIcon
   | LegalPage
   | Slug
+  | Post
   | SanityFileAssetReference
   | Gallery
   | About
-  | Settings
-  | Post
   | SanityAssistInstructionTask
   | SanityAssistTaskStatus
   | SanityAssistSchemaTypeAnnotations

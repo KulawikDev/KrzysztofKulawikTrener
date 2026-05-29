@@ -1,6 +1,6 @@
-import {DocumentTextIcon} from '@sanity/icons'
-import {format, parseISO} from 'date-fns'
-import {defineField, defineType} from 'sanity'
+import { DocumentTextIcon } from '@sanity/icons'
+import { format, parseISO } from 'date-fns'
+import { defineField, defineType } from 'sanity'
 
 /**
  * Post schema.  Define and edit the fields for the 'post' content type.
@@ -15,7 +15,7 @@ export const post = defineType({
   fields: [
     defineField({
       name: 'title',
-      title: 'Title',
+      title: 'Tytuł',
       type: 'string',
       validation: (rule) => rule.required(),
     }),
@@ -23,7 +23,7 @@ export const post = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      description: 'A slug is required for the post to show up in the preview',
+      description: 'Unikalny identyfikator używany w URL.',
       options: {
         source: 'title',
         maxLength: 96,
@@ -33,17 +33,17 @@ export const post = defineType({
     }),
     defineField({
       name: 'content',
-      title: 'Content',
+      title: 'Treść',
       type: 'blockContent',
     }),
     defineField({
       name: 'excerpt',
-      title: 'Excerpt',
+      title: 'Streszczenie',
       type: 'text',
     }),
     defineField({
       name: 'coverImage',
-      title: 'Cover Image',
+      title: 'Obrazek główny',
       type: 'image',
       options: {
         hotspot: true,
@@ -55,13 +55,13 @@ export const post = defineType({
         {
           name: 'alt',
           type: 'string',
-          title: 'Alternative text',
-          description: 'Important for SEO and accessibility.',
+          title: 'Tekst alternatywny',
+          description: 'Ważne dla SEO i dostępności.',
           validation: (rule) => {
             // Custom validation to ensure alt text is provided if the image is present. https://www.sanity.io/docs/validation
             return rule.custom((alt, context) => {
               if ((context.document?.coverImage as any)?.asset?._ref && !alt) {
-                return 'Required'
+                return 'Wymagane, gdy obrazek jest obecny.'
               }
               return true
             })
@@ -72,10 +72,45 @@ export const post = defineType({
     }),
     defineField({
       name: 'date',
-      title: 'Date',
+      title: 'Data publikacji',
       type: 'datetime',
       initialValue: () => new Date().toISOString(),
     }),
+    defineField({
+      name: 'tags',
+      title: 'Tagi',
+      type: 'array',
+      of: [{ type: 'string' }],
+      options: { layout: 'tags' },
+    }),
+    defineField({
+      name: 'gallery',
+      title: 'Galeria',
+      description: 'Dodatkowe obrazy wyświetlane poniżej głównej treści posta.',
+      type: 'array',
+      of: [
+        {
+          type: 'image',
+          options: {
+            hotspot: true,
+            aiAssist: { imageDescriptionField: 'alt' },
+          },
+          fields: [
+            defineField({
+              name: 'alt',
+              type: 'string',
+              title: 'Tekst alternatywny',
+              description: 'Ważne dla SEO i dostępności.',
+            }),
+            defineField({
+              name: 'caption',
+              type: 'string',
+              title: 'Podpis',
+            }),
+          ],
+        },
+      ],
+    })
   ],
   // List preview configuration. https://www.sanity.io/docs/previews-list-views
   preview: {
@@ -84,10 +119,10 @@ export const post = defineType({
       date: 'date',
       media: 'coverImage',
     },
-    prepare({title, media, date}) {
+    prepare({ title, media, date }) {
       const subtitles = [date && `on ${format(parseISO(date), 'LLL d, yyyy')}`].filter(Boolean)
 
-      return {title, media, subtitle: subtitles.join(' ')}
+      return { title, media, subtitle: subtitles.join(' ') }
     },
   },
 })

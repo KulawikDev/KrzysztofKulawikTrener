@@ -15,6 +15,12 @@
 export declare const internalGroqTypeReferenceTo: unique symbol
 
 // Source: ../schema.json
+export type VideoEmbed = {
+	_type: 'videoEmbed'
+	url: string
+	caption?: string
+}
+
 export type InfoSection = {
 	_type: 'infoSection'
 	heading?: string
@@ -37,34 +43,49 @@ export type Link = {
 	openInNewTab?: boolean
 }
 
-export type BlockContent = Array<{
-	children?: Array<{
-		marks?: Array<string>
-		text?: string
-		_type: 'span'
-		_key: string
-	}>
-	style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-	listItem?: 'bullet' | 'number'
-	markDefs?: Array<{
-		linkType?: 'href' | 'post'
-		href?: string
-		post?: PostReference
-		openInNewTab?: boolean
-		_type: 'link'
-		_key: string
-	}>
-	level?: number
-	_type: 'block'
-	_key: string
-}>
-
 export type SanityImageAssetReference = {
 	_ref: string
 	_type: 'reference'
 	_weak?: boolean
 	[internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
 }
+
+export type BlockContent = Array<
+	| {
+			children?: Array<{
+				marks?: Array<string>
+				text?: string
+				_type: 'span'
+				_key: string
+			}>
+			style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+			listItem?: 'bullet' | 'number'
+			markDefs?: Array<{
+				linkType?: 'href' | 'post'
+				href?: string
+				post?: PostReference
+				openInNewTab?: boolean
+				_type: 'link'
+				_key: string
+			}>
+			level?: number
+			_type: 'block'
+			_key: string
+	  }
+	| {
+			asset?: SanityImageAssetReference
+			media?: unknown
+			hotspot?: SanityImageHotspot
+			crop?: SanityImageCrop
+			alt?: string
+			caption?: string
+			_type: 'image'
+			_key: string
+	  }
+	| ({
+			_key: string
+	  } & VideoEmbed)
+>
 
 export type Transformation = {
 	_id: string
@@ -218,6 +239,22 @@ export type Post = {
 		_type: 'image'
 	}
 	date?: string
+	tags?: Array<string>
+	gallery?: Array<{
+		asset?: SanityImageAssetReference
+		media?: unknown
+		hotspot?: SanityImageHotspot
+		crop?: SanityImageCrop
+		alt?: string
+		caption?: string
+		_type: 'image'
+		_key: string
+	}>
+	sections?: Array<
+		{
+			_key: string
+		} & InfoSection
+	>
 }
 
 export type SanityFileAssetReference = {
@@ -531,11 +568,12 @@ export type Geopoint = {
 }
 
 export type AllSanitySchemaTypes =
+	| VideoEmbed
 	| InfoSection
 	| PostReference
 	| Link
-	| BlockContent
 	| SanityImageAssetReference
+	| BlockContent
 	| Transformation
 	| SanityImageCrop
 	| SanityImageHotspot
@@ -633,30 +671,107 @@ export type MorePostsQueryResult = Array<{
 
 // Source: src/sanity/lib/queries.ts
 // Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug] [0] {    content[]{    ...,    markDefs[]{      ...,        _type == "link" => {    "post": post->slug.current,    "legalPage": legalPage->slug.current  }    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  }
+// Query: *[_type == "post" && slug.current == $slug] [0] {    content[]{      ...,      markDefs[]{        ...,          _type == "link" => {    "post": post->slug.current,    "legalPage": legalPage->slug.current  }      }    },    gallery[]{      ...,    },    sections[]{      heading,      subheading,      content[]{        ...,        markDefs[]{          ...,            _type == "link" => {    "post": post->slug.current,    "legalPage": legalPage->slug.current  }        }      }    },    tags,      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  }
 export type PostQueryResult = {
-	content: Array<{
-		children?: Array<{
-			marks?: Array<string>
-			text?: string
-			_type: 'span'
-			_key: string
-		}>
-		style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-		listItem?: 'bullet' | 'number'
-		markDefs: Array<{
-			linkType?: 'href' | 'post'
-			href?: string
-			post: string | null
-			openInNewTab?: boolean
-			_type: 'link'
-			_key: string
-			legalPage: null
-		}> | null
-		level?: number
-		_type: 'block'
+	content: Array<
+		| {
+				children?: Array<{
+					marks?: Array<string>
+					text?: string
+					_type: 'span'
+					_key: string
+				}>
+				style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+				listItem?: 'bullet' | 'number'
+				markDefs: Array<{
+					linkType?: 'href' | 'post'
+					href?: string
+					post: string | null
+					openInNewTab?: boolean
+					_type: 'link'
+					_key: string
+					legalPage: null
+				}> | null
+				level?: number
+				_type: 'block'
+				_key: string
+		  }
+		| {
+				asset?: SanityImageAssetReference
+				media?: unknown
+				hotspot?: SanityImageHotspot
+				crop?: SanityImageCrop
+				alt?: string
+				caption?: string
+				_type: 'image'
+				_key: string
+				markDefs: null
+		  }
+		| {
+				_key: string
+				_type: 'videoEmbed'
+				url: string
+				caption?: string
+				markDefs: null
+		  }
+	> | null
+	gallery: Array<{
+		asset?: SanityImageAssetReference
+		media?: unknown
+		hotspot?: SanityImageHotspot
+		crop?: SanityImageCrop
+		alt?: string
+		caption?: string
+		_type: 'image'
 		_key: string
 	}> | null
+	sections: Array<{
+		heading: string | null
+		subheading: string | null
+		content: Array<
+			| {
+					children?: Array<{
+						marks?: Array<string>
+						text?: string
+						_type: 'span'
+						_key: string
+					}>
+					style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+					listItem?: 'bullet' | 'number'
+					markDefs: Array<{
+						linkType?: 'href' | 'post'
+						href?: string
+						post: string | null
+						openInNewTab?: boolean
+						_type: 'link'
+						_key: string
+						legalPage: null
+					}> | null
+					level?: number
+					_type: 'block'
+					_key: string
+			  }
+			| {
+					asset?: SanityImageAssetReference
+					media?: unknown
+					hotspot?: SanityImageHotspot
+					crop?: SanityImageCrop
+					alt?: string
+					caption?: string
+					_type: 'image'
+					_key: string
+					markDefs: null
+			  }
+			| {
+					_key: string
+					_type: 'videoEmbed'
+					url: string
+					caption?: string
+					markDefs: null
+			  }
+		> | null
+	}> | null
+	tags: Array<string> | null
 	_id: string
 	status: 'draft' | 'published'
 	title: string
@@ -734,28 +849,48 @@ export type TransformationsQueryResult = Array<{
 		before: string
 		after: string
 	}> | null
-	description: Array<{
-		children?: Array<{
-			marks?: Array<string>
-			text?: string
-			_type: 'span'
-			_key: string
-		}>
-		style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-		listItem?: 'bullet' | 'number'
-		markDefs: Array<{
-			linkType?: 'href' | 'post'
-			href?: string
-			post: string | null
-			openInNewTab?: boolean
-			_type: 'link'
-			_key: string
-			legalPage: null
-		}> | null
-		level?: number
-		_type: 'block'
-		_key: string
-	}> | null
+	description: Array<
+		| {
+				children?: Array<{
+					marks?: Array<string>
+					text?: string
+					_type: 'span'
+					_key: string
+				}>
+				style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+				listItem?: 'bullet' | 'number'
+				markDefs: Array<{
+					linkType?: 'href' | 'post'
+					href?: string
+					post: string | null
+					openInNewTab?: boolean
+					_type: 'link'
+					_key: string
+					legalPage: null
+				}> | null
+				level?: number
+				_type: 'block'
+				_key: string
+		  }
+		| {
+				asset?: SanityImageAssetReference
+				media?: unknown
+				hotspot?: SanityImageHotspot
+				crop?: SanityImageCrop
+				alt?: string
+				caption?: string
+				_type: 'image'
+				_key: string
+				markDefs: null
+		  }
+		| {
+				_key: string
+				_type: 'videoEmbed'
+				url: string
+				caption?: string
+				markDefs: null
+		  }
+	> | null
 }>
 
 // Source: src/sanity/lib/queries.ts
@@ -882,7 +1017,7 @@ declare module '@sanity/client' {
 		'\n  *[_type == "post" || _type == "legalPage" && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult
 		'\n  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n\n  }\n': AllPostsQueryResult
 		'\n  *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n\n  }\n': MorePostsQueryResult
-		'\n  *[_type == "post" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "post": post->slug.current,\n    "legalPage": legalPage->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n\n  }\n': PostQueryResult
+		'\n  *[_type == "post" && slug.current == $slug] [0] {\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        \n  _type == "link" => {\n    "post": post->slug.current,\n    "legalPage": legalPage->slug.current\n  }\n\n      }\n    },\n    gallery[]{\n      ...,\n    },\n    sections[]{\n      heading,\n      subheading,\n      content[]{\n        ...,\n        markDefs[]{\n          ...,\n          \n  _type == "link" => {\n    "post": post->slug.current,\n    "legalPage": legalPage->slug.current\n  }\n\n        }\n      }\n    },\n    tags,\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n\n  }\n': PostQueryResult
 		'\n  *[_type == "post" && defined(slug.current)]\n  {"slug": slug.current}\n': PostPagesSlugsResult
 		'\n  *[_type == "faq"] | order(orderRank) {\n    question,\n    answer\n  }\n': FaqQueryResult
 		'\n  *[_type == "service"] | order(order asc) {\n    _id,\n    name,\n    label,\n    image,\n    icon,\n    ctaLabel,\n  }\n': ServicesQueryResult
