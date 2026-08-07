@@ -1,7 +1,9 @@
 'use client'
 
+import { CookieSettingsButton } from '@/components/analytics/cookie-settings-button'
 import { siteConfig } from '@/config/site'
 import { sendContactEmail } from '@/lib/actions/contact'
+import { trackEvent } from '@/lib/analytics/gtag'
 import { cn } from '@/lib/utils'
 import { ContactEmailPayload, ContactEmailValidator } from '@/lib/validators/contactForm'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -74,6 +76,8 @@ export function FooterContact() {
 			const result = await sendContactEmail(values)
 			if (!result.success) throw new Error(result.errorKey)
 			setStatus('success')
+			// Last step, server confirmed the send — this is the lead.
+			trackEvent('generate_lead', { method: 'contact_form', form_location: 'footer' })
 		} catch {
 			setStatus('error')
 			setTimeout(() => setStatus('idle'), 4000)
@@ -279,15 +283,19 @@ export function FooterContact() {
 					</nav>
 
 					{/* Phone + email */}
-					<div className='flex flex-col gap-2 font-heading text-3xl leading-[1.15] text-foreground md:text-3xl lg:text-4xl'>
-						<Link
-							href={`tel:${siteConfig.phone.replace(/\s/g, '')}`}
-							className='transition-colors duration-200 hover:text-primary'>
-							{siteConfig.phone}
-						</Link>
-						<Link href={`mailto:${siteConfig.email}`} className='transition-colors duration-200 hover:text-primary'>
-							{siteConfig.email}
-						</Link>
+					<div className='flex flex-col gap-3 sm:items-end lg:items-end'>
+						<div className='flex flex-col gap-2 font-heading text-3xl leading-[1.15] text-foreground md:text-3xl lg:text-4xl'>
+							<Link
+								href={`tel:${siteConfig.phone.replace(/\s/g, '')}`}
+								className='transition-colors duration-200 hover:text-primary'>
+								{siteConfig.phone}
+							</Link>
+							<Link href={`mailto:${siteConfig.email}`} className='transition-colors duration-200 hover:text-primary'>
+								{siteConfig.email}
+							</Link>
+						</div>
+
+						<CookieSettingsButton className='w-max font-body text-xs text-foreground/40 underline-offset-2 transition-colors hover:text-foreground/70 hover:underline' />
 					</div>
 				</div>
 			</div>

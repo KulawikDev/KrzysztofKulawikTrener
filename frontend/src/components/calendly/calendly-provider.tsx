@@ -1,7 +1,8 @@
 'use client'
 
+import { trackEvent } from '@/lib/analytics/gtag'
 import { createContext, useCallback, useContext, useEffect, useState } from 'react'
-import { PopupModal } from 'react-calendly'
+import { PopupModal, useCalendlyEventListener } from 'react-calendly'
 
 const CALENDLY_URL = 'https://calendly.com/trener-krzysztof-kulawik/konsultacja'
 
@@ -26,6 +27,12 @@ export function CalendlyProvider({ children }: { children: React.ReactNode }) {
 	}, [])
 
 	const openCalendly = useCallback(() => setIsOpen(true), [])
+
+	// Calendly runs in an iframe — the only signal a booking went through is the
+	// 'calendly.event_scheduled' postMessage, which this hook listens for.
+	useCalendlyEventListener({
+		onEventScheduled: () => trackEvent('book_appointment', { method: 'calendly' })
+	})
 
 	return (
 		<CalendlyContext.Provider value={{ openCalendly }}>

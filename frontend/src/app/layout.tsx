@@ -1,5 +1,8 @@
 import './globals.css'
 
+import { ContactLinkTracker } from '@/components/analytics/contact-link-tracker'
+import { CookieConsent } from '@/components/analytics/cookie-consent'
+import { GoogleTag } from '@/components/analytics/google-tag'
 import DraftModeToast from '@/components/draft-mode-toast'
 import { Footer } from '@/components/layout/footer'
 import Navbar from '@/components/layout/navbar'
@@ -9,7 +12,6 @@ import { siteConfig } from '@/config/site'
 import { BASE_URL } from '@/lib/base-url'
 import { LocalBusinessSchema, OrganisationSchema, PersonSchema, WebsiteSchema } from '@/lib/structuredData'
 import { SanityLive } from '@/sanity/lib/live'
-import { GoogleAnalytics } from '@next/third-parties/google'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata, Viewport } from 'next'
@@ -89,6 +91,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 	return (
 		<html lang='pl' className={`${body.variable} ${heading.variable}`}>
 			<body>
+				{/* Must stay first in <body> — Consent Mode defaults have to run before gtag.js */}
+				<GoogleTag />
+
 				<Toaster />
 				{isDraftMode && (
 					<>
@@ -116,14 +121,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 				<Analytics />
 				<SpeedInsights />
 
-				{process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
-					<GoogleAnalytics
-						debugMode
-						gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}
-						data-category='analytics'
-						data-service='Google Analytics'
-					/>
-				)}
+				<ContactLinkTracker />
+				<CookieConsent />
 
 				<StructuredData data={WebsiteSchema()} />
 				<StructuredData data={OrganisationSchema()} />
