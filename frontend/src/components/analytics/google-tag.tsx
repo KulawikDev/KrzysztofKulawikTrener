@@ -57,6 +57,18 @@ const tagInit = `
 /**
  * Google tag (gtag.js) — one library instance serving both the Ads account and GA4.
  * Loaded on every page via the root layout.
+ *
+ * This is Consent Mode in its *advanced* form: the tag loads regardless of the banner, so
+ * before a visitor chooses anything GA4 and Ads still receive cookieless pings — no
+ * identifiers, no `_ga`/`_gcl` cookies written. That is what feeds GA4's behavioural
+ * modelling and Ads' conversion modelling. The basic form (withholding the tag until
+ * consent) collects nothing at all from anyone who ignores the banner, which is why it is
+ * not used here.
+ *
+ * Sequence for a first-time visitor: `consent default` (everything denied except
+ * functionality/security) → `ads_data_redaction: true` → `url_passthrough: true`, then hits
+ * flow once `wait_for_update` (500ms) elapses. A stored decision is replayed as
+ * `consent update` inside the same script, so returning visitors never wait on it.
  */
 export function GoogleTag() {
 	return (

@@ -13,23 +13,26 @@ const STEPS: Step[] = [
 	{
 		title: 'CEL',
 		image: '/images/process/cel.webp',
-		description: 'Najpierw ustalamy, do czego dążysz i co realnie chcesz osiągnąć podczas naszej współpracy.'
+		description:
+			'Ustalamy, gdzie chcesz być za trzy miesiące. Nie "schudnąć", tylko konkretnie: ile, w czym ma Ci być lżej, co chcesz móc zrobić, czego dziś nie możesz.'
 	},
 	{
-		title: 'STRATEGIA',
+		title: 'ANALIZA',
 		image: '/images/process/strategia.webp',
-		description: 'Dobieramy działania do Twojego poziomu, możliwości, ograniczeń i codziennego rytmu życia.'
+		description:
+			'Sprawdzam Twoją postawę, mobilność i to, jak się poruszasz. Bark po dwudziestu latach przy biurku i kolano, które strzyka na schodach, to nie są detale. To jest punkt wyjścia całego planu.'
 	},
 	{
 		title: 'PROCES',
 		image: '/images/process/proces.webp',
-		description: 'Budujemy regularność, technikę i progres krok po kroku - bez chaosu i bez zgadywania.'
+		description:
+			'Uczę Cię techniki, zanim dołożę ciężar. Tłumaczę, dlaczego robimy każde ćwiczenie. Ciężar rośnie w tempie, które Twoje ciało uniesie, a nie w tempie, które dobrze wygląda na filmiku.'
 	},
 	{
 		title: 'REZULTAT',
 		image: null,
 		description:
-			'Efektem ma być nie tylko lepsza forma, ale też większa kontrola, pewność siebie i sprawność na co dzień.',
+			'Silniejsze ciało, więcej energii i wiedza, która zostaje z Tobą na lata. Sylwetka jest skutkiem, nie celem.',
 		descriptionOpacity: 'full'
 	}
 ]

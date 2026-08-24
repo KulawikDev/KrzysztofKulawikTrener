@@ -75,19 +75,20 @@ export const HowToStart = (props: Props) => {
 
 const STEPS = [
 	{
-		title: 'Umawiasz darmową rozmowę',
-		description: 'Wybierz dogodny termin przez kalendarz już teraz lub skontaktuj się osobiście'
+		title: 'Umawiasz rozmowę',
+		description: 'Wybierasz termin w kalendarzu albo piszesz do mnie. Rozmowa trwa 20 minut i jest przez telefon.'
 	},
 	{
 		title: 'Rozmawiamy o twoim celu',
-		description: 'Sprawdzamy, z jakiego miejsca startujesz i jaki kierunek będzie dla Ciebie najlepszy'
+		description: 'Pytam, skąd startujesz, co już próbowałaś i co Cię boli. Mówię wprost, czy umiem Ci pomóc, czy nie.'
 	},
 	{
-		title: 'Dobieramy formę współpracy',
-		description: 'Ustalamy sposób działania dopasowany do Twoich potrzeb i możliwości'
+		title: 'Przychodzisz na pierwszy trening',
+		description:
+			'Nie zaczynamy od ciężarów. Sprawdzam, jak się poruszasz, i uczę Cię trzech podstawowych ruchów. Wyjdziesz z uczuciem, że mogłabyś jeszcze. To jest cel, a nie porażka.'
 	},
 	{
 		title: 'Zaczynamy',
-		description: 'Umów darmową rozmowę'
+		description: 'Umów rozmowę'
 	}
 ]

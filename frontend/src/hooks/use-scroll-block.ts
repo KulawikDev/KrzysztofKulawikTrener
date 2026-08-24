@@ -16,8 +16,12 @@ type OriginalStyle = {
 	paddingRight: CSSStyleDeclaration['paddingRight']
 }
 const IS_SERVER = typeof window === 'undefined'
+
+/** Whether the browser reserves the scrollbar gutter for us — see the `html` rule in globals.css. */
+const supportsScrollbarGutter = () =>
+	typeof CSS !== 'undefined' && typeof CSS.supports === 'function' && CSS.supports('scrollbar-gutter', 'stable')
 export function useScrollLock(options: UseScrollLockOptions = {}): UseScrollLockReturn {
-	const { autoLock = true, lockTarget, widthReflow = true } = options
+	const { autoLock = true, lockTarget, widthReflow } = options
 	const [isLocked, setIsLocked] = useState(false)
 	const target = useRef<HTMLElement | null>(null)
 	const originalStyle = useRef<OriginalStyle | null>(null)
@@ -26,8 +30,13 @@ export function useScrollLock(options: UseScrollLockOptions = {}): UseScrollLock
 			const { overflow, paddingRight } = target.current.style
 			// Save the original styles
 			originalStyle.current = { overflow, paddingRight }
-			// Prevent width reflow
-			if (widthReflow) {
+			// Prevent width reflow.
+			//
+			// `html { scrollbar-gutter: stable }` already holds the scrollbar's width, so
+			// hiding the scrollbar changes nothing and padding on top of that would shift the
+			// layout by a scrollbar width in the *other* direction. Where the browser doesn't
+			// support the gutter (Safari < 18.2) we fall back to padding, as before.
+			if (widthReflow ?? !supportsScrollbarGutter()) {
 				// Use window inner width if body is the target as global scrollbar isn't part of the document
 				const offsetWidth = target.current === document.body ? window.innerWidth : target.current.offsetWidth
 				// Get current computed padding right in pixels
@@ -43,10 +52,8 @@ export function useScrollLock(options: UseScrollLockOptions = {}): UseScrollLock
 	const unlock = useCallback(() => {
 		if (target.current && originalStyle.current) {
 			target.current.style.overflow = originalStyle.current.overflow
-			// Only reset padding right if we changed it
-			if (widthReflow) {
-				target.current.style.paddingRight = originalStyle.current.paddingRight
-			}
+			// Unconditional: restoring the recorded value is a no-op when we never padded.
+			target.current.style.paddingRight = originalStyle.current.paddingRight
 		}
 		setIsLocked(false)
 	}, [widthReflow])

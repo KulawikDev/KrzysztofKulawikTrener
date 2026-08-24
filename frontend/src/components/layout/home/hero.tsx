@@ -86,7 +86,7 @@ export function Hero() {
 			{/* Headline – bottom-left aligned */}
 			<div className='relative isolate z-40 mt-auto pb-6 md:pb-8 lg:pb-12 lg:mix-blend-difference'>
 				<h1 className='z-0 max-w-xl font-heading text-[clamp(48px,8.9vw,128px)] leading-[0.9] tracking-tight text-balance text-foreground uppercase sm:max-w-2xl xl:max-w-3xl'>
-					Pomagam Ci stać się <span className='text-primary'>lepszą wersją samego siebie</span>
+					<span className='text-primary'>Bądź silniejsza po </span> czterdziestce niż przed.
 				</h1>
 			</div>
 		</section>

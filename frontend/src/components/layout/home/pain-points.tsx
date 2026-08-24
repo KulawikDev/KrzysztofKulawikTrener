@@ -12,34 +12,33 @@ type Card = {
 
 const CARDS: Card[] = [
 	{
-		title: 'Nie wiesz od czego zacząć',
+		title: 'Jesz to samo, a waga rośnie',
 		body: (
 			<>
-				Wchodzisz na siłownię i widzisz dziesiątki ćwiczeń, sprzętów i planów z internetu. Każdy mówi coś innego i{' '}
-				<strong className='font-bold'>trudno zdecydować, co tak naprawdę ma sens.</strong>
+				Nic nie zmieniłaś w jedzeniu, a spodnie zapinają się coraz gorzej. Słyszałaś, że to wiek i trzeba się pogodzić.
+				To nieprawda i wyjaśnię dlaczego.
 			</>
 		),
 		image: '/images/shapes/icon-1.webp'
 	},
 	{
-		title: 'Trenujesz, ale nie widzisz efektów',
+		title: 'Próbowałaś i za każdym razem wracało',
 		body: (
 			<>
-				Mijasz kolejne tygodnie, robisz treningi, ale{' '}
-				<strong className='font-bold'>ciało praktycznie się nie zmienia</strong>. Pojawia się frustracja i pytanie: czy
-				robię coś źle?
+				Program z internetu, dieta od znajomej, dietetyk, który wyciął węglowodany i odebrał Ci siłę do funkcjonowania.
+				Dwa kilogramy w dół, potem wszystko z powrotem, plus poczucie, że znowu Ci nie wyszło.
 			</>
 		),
 		image: '/images/shapes/icon-2.webp'
 	},
 	{
-		title: 'Czujesz, że stoisz w miejscu',
-		body: 'Próbujesz różnych rzeczy: inne ćwiczenia, inne treningi, inne metody. Ale zamiast progresu pojawia się chaos.',
+		title: 'Boisz się, że sobie zaskodzisz',
+		body: 'Plecy bolą od biurka, kolana strzykają na schodach. Wiesz, że powinnaś ćwiczyć, ale nikt nigdy nie sprawdził, jak się poruszasz, więc boisz się, że trening pogorszy sprawę.',
 		image: '/images/shapes/icon-3.webp'
 	},
 	{
-		title: 'Brakuje ci struktury',
-		body: 'Jeden tydzień trenujesz regularnie, potem wszystko się rozsypuje. Plan z internetu przestaje działać, a motywacja spada.',
+		title: 'Nie wiesz, od czego zacząć',
+		body: 'Wchodzisz na siłownię i widzisz dwudziestolatki i mężczyzn przy sztangach. Wszystko wygląda tak, jakby było dla kogoś innego. Wracasz na bieżnię, bo tam przynajmniej wiesz, co robić.',
 		image: '/images/shapes/icon-4.webp'
 	}
 ]
@@ -65,7 +64,7 @@ function PainCard({ title, body, className, image }: Card) {
 			{/* Content */}
 			<div className='flex flex-col gap-3'>
 				<h3 className='font-heading text-4xl leading-none text-balance text-foreground uppercase'>{title}</h3>
-				<p className='max-w-sm font-body text-sm leading-[1.25] text-balance text-foreground/70'>{body}</p>
+				<p className='max-w-sm font-body text-sm leading-[1.5] text-balance text-foreground/70'>{body}</p>
 			</div>
 		</div>
 	)
@@ -83,7 +82,7 @@ export function PainPoints() {
 						Brzmi znajomo?
 					</h2>
 					<h3 className='max-w-lg font-heading text-[clamp(28px,3.6vw,48px)] leading-[1.05] text-balance text-foreground uppercase opacity-90'>
-						To właśnie w tym momencie większość osób się poddaje
+						To właśnie w tym momencie większość kobiet się poddaje
 					</h3>
 				</div>
 
@@ -94,6 +93,13 @@ export function PainPoints() {
 				<PainCard {...CARDS[3]} className='mt-auto sm:max-lg:pt-16' />
 				<PainCard {...CARDS[2]} className='lg:mt-auto' />
 				<PainCard {...CARDS[1]} className='sm:max-lg:pt-16 lg:pb-32' />
+			</div>
+
+			<div className='mt-24 lg:mt-32'>
+				<p className='ml-auto max-w-lg text-right text-lg text-balance'>
+					Żadna z tych rzeczy nie jest kwestią wieku ani silnej woli. Wszystkie są kwestią tego, że nikt Ci nie
+					wytłumaczył, jak działa Twoje ciało po czterdziestce.
+				</p>
 			</div>
 		</section>
 	)

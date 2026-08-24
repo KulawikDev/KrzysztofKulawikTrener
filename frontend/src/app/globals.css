@@ -155,6 +155,10 @@
 	}
 	html {
 		@apply h-full scroll-smooth;
+		/* Keep the scrollbar gutter reserved at all times. Locking body scroll (nav panel,
+		   transformation modal) removes the scrollbar, and without a reserved gutter that
+		   reflows the whole page by its width every time a modal opens. */
+		scrollbar-gutter: stable;
 	}
 	body {
 		@apply min-h-full bg-background font-body text-foreground selection:bg-primary selection:text-primary-foreground;

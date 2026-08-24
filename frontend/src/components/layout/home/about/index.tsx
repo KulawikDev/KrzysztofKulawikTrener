@@ -58,13 +58,17 @@ export async function About() {
 								do dziś.
 								<br />
 								<br />
-								To właśnie sport nauczył mnie dyscypliny, konsekwencji, świadomości ciała i szacunku do procesu. Dziś
-								łączę własne doświadczenie z wiedzą trenerską, aby pomagać innym trenować skutecznie, mądrze i z
-								konkretnym celem.
+								To właśnie sport nauczył mnie dyscypliny, konsekwencji, świadomości ciała i szacunku do procesu. Nauczył
+								mnie też cierpliwości, bo ciała nie da się zmusić do niczego na skróty.
 								<br />
 								<br />
-								Teraz jako trener personalny Chrzanów, pomagam ludziom osiągać ich cele zdrowotne i sylwetkowe, oferując
-								spersonalizowane programy treningowe i wsparcie na każdym etapie ich fitnessowej podróży.
+								Studiuję fizjoterapię, bo chciałem rozumieć, jak ciało pracuje, zanim zacznę mu dokładać obciążenie.
+								Dlatego zanim ułożę plan, patrzę na to, jak się poruszasz: co robi bark po latach przy biurku, jak
+								pracuje biodro, gdzie brakuje zakresu. Ciężar dokładam dopiero wtedy, gdy ruch jest pewny.
+								<br />
+								<br />
+								Jako trener personalny w Chrzanowie pracuję dziś przede wszystkim z kobietami po czterdziestce, które
+								chcą schudnąć albo wzmocnić ciało i szukają kogoś, kto poprowadzi je spokojnie i bez ryzyka.
 							</p>
 						</div>
 
@@ -73,7 +77,7 @@ export async function About() {
 				</div>
 
 				<p className='mt-8 ml-[min(19rem,19.5vw)] max-w-sm font-body text-sm leading-normal text-balance text-foreground lg:mt-8 lg:w-1/2'>
-					Nie interesują mnie przypadkowe rozwiązania. Interesuje mnie progres, który ma sens - i który da się utrzymać.
+					Nie obiecuję szybkich efektów. Zależy mi na tym, co zostaje na lata.
 				</p>
 			</div>
 		</section>
