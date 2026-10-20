@@ -2,7 +2,7 @@ import { FacebookIcon, InstagramIcon, LinkedinIcon, LucideIcon } from 'lucide-re
 
 export const siteConfig = {
   name: 'Krzysztof Kulawik',
-  email: 'krzys.kulawik@gmail.com',
+  email: 'kontakt@kryzsztofkulawik.pl',
   phone: '+48 668 485 081',
   legalName: undefined,
   nip: undefined,
